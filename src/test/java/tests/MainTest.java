@@ -5,6 +5,8 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.ConfigManager;
+import utils.StringUtils;
 
 
 import static io.restassured.RestAssured.given;
@@ -47,13 +49,13 @@ public class MainTest {
         Assert.assertNotNull(id);
 
         int userId = response.jsonPath().getInt("userId");
-        Assert.assertEquals(userId,1);
+        Assert.assertEquals(userId,StringUtils.stringToInt(ConfigManager.getFromConfig("postUSERID")));
 
         String title = response.jsonPath().getString("title");
-        Assert.assertEquals(title,"AlexExample");
+        Assert.assertEquals(title,ConfigManager.getFromConfig("postTITLE"));
 
         String body = response.jsonPath().getString("body");
-        Assert.assertEquals(body,"example_body");
+        Assert.assertEquals(body,ConfigManager.getFromConfig("postBODY"));
 
 
         System.out.println(id);

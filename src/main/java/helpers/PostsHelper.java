@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import pojo.Posts;
 import utils.ConfigManager;
+import utils.StringUtils;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -25,7 +26,7 @@ public class PostsHelper {
     }
 
     public List<Posts> OLDDDDDgetAllPosts(){
-        RestAssured.baseURI = BASE_URL;
+//        RestAssured.baseURI = BASE_URL;
         Response response = RestAssured
             .given()
                 .contentType(ContentType.JSON)
@@ -58,15 +59,16 @@ public class PostsHelper {
 
     public Response createPost(){
         Posts posts = new Posts();
-        posts.setUserId(1);
-        posts.setId(101);
-        posts.setTitle("AlexExample");
-        posts.setBody("example_body");
+        posts.setUserId(StringUtils.stringToInt(ConfigManager.getFromConfig("postUSERID")));
+        posts.setId(StringUtils.stringToInt(ConfigManager.getFromConfig("postID")));
+        posts.setTitle(ConfigManager.getFromConfig("postTITLE"));
+        posts.setBody(ConfigManager.getFromConfig("postBODY"));
 
         Response response =  RestAssured
                 .given()
                     .contentType(ContentType.JSON)
                     .accept(ContentType.JSON)
+                .log().all()
                 .when()
                     .body(posts)
                     .post(Endpoints.POSTS)
