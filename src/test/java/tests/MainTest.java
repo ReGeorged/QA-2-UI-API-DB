@@ -40,26 +40,9 @@ public class MainTest {
     }
 
 
-    @Test
-    public static void testStep4(){
-        PostsHelper postsHelper = new PostsHelper();
-        Response response= postsHelper.createPost();
-
-        int id = response.jsonPath().getInt("id");
-        Assert.assertNotNull(id);
-
-        int userId = response.jsonPath().getInt("userId");
-        Assert.assertEquals(userId,StringUtils.stringToInt(ConfigManager.getFromConfig("postUSERID")));
-
-        String title = response.jsonPath().getString("title");
-        Assert.assertEquals(title,ConfigManager.getFromConfig("postTITLE"));
-
-        String body = response.jsonPath().getString("body");
-        Assert.assertEquals(body,ConfigManager.getFromConfig("postBODY"));
 
 
-        System.out.println(id);
-    }
+
 
 
 

@@ -63,7 +63,6 @@ public class PostsHelper {
         posts.setId(StringUtils.stringToInt(ConfigManager.getFromConfig("postID")));
         posts.setTitle(ConfigManager.getFromConfig("postTITLE"));
         posts.setBody(ConfigManager.getFromConfig("postBODY"));
-
         Response response =  RestAssured
                 .given()
                     .contentType(ContentType.JSON)
