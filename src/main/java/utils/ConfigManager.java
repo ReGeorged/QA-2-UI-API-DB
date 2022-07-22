@@ -22,6 +22,7 @@ public class ConfigManager {
             throw new RuntimeException(e);
         }
         return prop.getProperty(key);
+
     }
 
 
