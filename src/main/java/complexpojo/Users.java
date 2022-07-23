@@ -1,14 +1,19 @@
 package complexpojo;
 
 public class Users {
-    int id ;
+    int id;
     private String name;
+
+    public Users() {
+
+    }
+
     private String username;
     private String email;
-
     private Address address;
-
     private String phone;
+    private String website;
+    private Company company;
 
     public int getId() {
         return id;
@@ -73,9 +78,6 @@ public class Users {
     public void setCompany(Company company) {
         this.company = company;
     }
-
-    private String website;
-    private Company company;
 
 
 }

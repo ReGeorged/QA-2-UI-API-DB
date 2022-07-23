@@ -4,6 +4,9 @@ public class Geo {
     private Double lat;
     private Double lng;
 
+    public Geo(){
+    }
+
     public Double getLat() {
         return lat;
     }
@@ -18,9 +21,5 @@ public class Geo {
 
     public void setLng(Double lng) {
         this.lng = lng;
-    }
-
-    public Geo(){
-
     }
 }

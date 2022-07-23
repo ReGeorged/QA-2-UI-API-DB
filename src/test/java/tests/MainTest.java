@@ -25,7 +25,7 @@ public class MainTest {
 //        System.out.println(postsHelper.OLDDDDDgetAllUsers().toString());
 
         ComplexPojoHelper complexPojoHelper = new ComplexPojoHelper();
-        //TODO continue from here
+        complexPojoHelper.deserializeToComplexPojo("4",200);
 
     }
 

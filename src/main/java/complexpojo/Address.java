@@ -6,7 +6,9 @@ public class Address {
     private String city;
     private String zipcode;
     private Geo geo;
-    public Address(){}
+
+    public Address() {
+    }
 
     public String getStreet() {
         return street;
