@@ -78,17 +78,6 @@ public class PostsHelper {
         return response;
     }
 
-    public Response callGetOnSpecificPosts(String whichIndex, int expectedCode) {
-        Response response =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .get(Endpoints.GET_SINGLE_POSTS + whichIndex)
-                        .then()
-                        .statusCode(expectedCode)
-                        .extract()
-                        .response();
-        return response;
 
     }
-}
+

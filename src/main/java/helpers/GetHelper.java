@@ -15,7 +15,7 @@ public class GetHelper {
         baseURI = BASE_URL;
     }
 
-    public String callGetAllUsersAndExtractSpecific(int expectedCode, String whichIndex) {
+    public String callGetAllUsersAndExtractSpecific(String whichIndex, int expectedCode) {
         Response response =
                 given()
                         .contentType(ContentType.JSON)
@@ -57,5 +57,19 @@ public class GetHelper {
         return response;
 
 
+    }
+
+
+    public static Response callGetOnSpecificPosts(String whichIndex, int expectedCode) {
+        Response response =
+                given()
+                        .contentType(ContentType.JSON)
+                        .accept(ContentType.JSON)
+                        .get(Endpoints.GET_SINGLE_POSTS + whichIndex)
+                        .then()
+                        .statusCode(expectedCode)
+                        .extract()
+                        .response();
+        return response;
     }
 }
