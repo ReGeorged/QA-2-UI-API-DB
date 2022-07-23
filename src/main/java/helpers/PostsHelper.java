@@ -20,21 +20,21 @@ public class PostsHelper {
     private static final String BASE_URL = ConfigManager.getFromConfig("URL");
 
 
-
-    public PostsHelper(){
+    public PostsHelper() {
         RestAssured.baseURI = BASE_URL;
     }
 
-    public List<Posts> OLDDDDDgetAllPosts(){
+    public List<Posts> OLDDDDDgetAllPosts() {
 //        RestAssured.baseURI = BASE_URL;
         Response response = RestAssured
-            .given()
+                .given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
 
                 .get(Endpoints.POSTS)
                 .andReturn();
-        Type type = new TypeReference<List<Posts>>(){}.getType();
+        Type type = new TypeReference<List<Posts>>() {
+        }.getType();
         List<Posts> postsList = response.as(type);
         return postsList;
 
@@ -57,25 +57,38 @@ public class PostsHelper {
         return response;
     }
 
-    public Response createPost(){
+    public Response createPost() {
         Posts posts = new Posts();
         posts.setUserId(StringUtils.stringToInt(ConfigManager.getFromConfig("postUSERID")));
         posts.setId(StringUtils.stringToInt(ConfigManager.getFromConfig("postID")));
         posts.setTitle(ConfigManager.getFromConfig("postTITLE"));
         posts.setBody(ConfigManager.getFromConfig("postBODY"));
-        Response response =  RestAssured
+        Response response = RestAssured
                 .given()
-                    .contentType(ContentType.JSON)
-                    .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
                 .log().all()
                 .when()
-                    .body(posts)
-                    .post(Endpoints.POSTS)
-                    .andReturn();
-        Assert.assertEquals(response.getStatusCode(),201);
+                .body(posts)
+                .post(Endpoints.POSTS)
+                .andReturn();
+        Assert.assertEquals(response.getStatusCode(), 201);
 
 
         return response;
     }
 
+    public Response callGetOnSpecificPosts(String whichIndex, int expectedCode) {
+        Response response =
+                given()
+                        .contentType(ContentType.JSON)
+                        .accept(ContentType.JSON)
+                        .get(Endpoints.GET_SINGLE_POSTS + whichIndex)
+                        .then()
+                        .statusCode(expectedCode)
+                        .extract()
+                        .response();
+        return response;
+
+    }
 }

@@ -10,5 +10,10 @@ public class ResponseUtils {
         return responseString;
     }
 
+    public static String extractFieldFromResponse(Response response,String whatToExtract) {
+        String responseString = response.getBody().jsonPath().getString(whatToExtract);
+        return responseString;
+    }
+
 
 }
