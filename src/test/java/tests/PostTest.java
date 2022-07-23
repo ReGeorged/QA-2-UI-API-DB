@@ -15,16 +15,16 @@ public class PostTest {
         Response response = postsHelper.createPost();
 
         int id = response.jsonPath().getInt("id");
-        Assert.assertNotNull(id);
+        Assert.assertNotNull(id,"id is null");
 
         int userId = response.jsonPath().getInt("userId");
-        Assert.assertEquals(userId, StringUtils.stringToInt(ConfigManager.getFromConfig("postUSERID")));
+        Assert.assertEquals(userId, StringUtils.stringToInt(ConfigManager.getFromConfig("postUSERID")),"UserId -s dont match");
 
         String title = response.jsonPath().getString("title");
-        Assert.assertEquals(title, ConfigManager.getFromConfig("postTITLE"));
+        Assert.assertEquals(title, ConfigManager.getFromConfig("postTITLE"),"titles dont match");
 
         String body = response.jsonPath().getString("body");
-        Assert.assertEquals(body, ConfigManager.getFromConfig("postBODY"));
+        Assert.assertEquals(body, ConfigManager.getFromConfig("postBODY"),"body -s dont match");
     }
 
 }
