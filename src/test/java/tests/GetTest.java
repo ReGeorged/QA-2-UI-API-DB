@@ -42,6 +42,4 @@ public class GetTest {
         System.out.println(getHelper.callGetAllUsersAndExtractSpecific(200,"4"));
     }
 
-
-
 }
