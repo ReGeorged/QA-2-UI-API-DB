@@ -27,20 +27,6 @@ public class PostTest {
 
         String body = response.jsonPath().getString("body");
         Assert.assertEquals(body,ConfigManager.getFromConfig("postBODY"));
-
     }
 
-    @Test
-    public void step2() {
-        PostsHelper postsHelper = new PostsHelper();
-
-        Response response = postsHelper.callGetOnSpecificPosts("99",200);
-
-        Assert.assertEquals(ResponseUtils.extractFieldFromResponse(response,"id"),"99");
-        Assert.assertEquals(ResponseUtils.extractFieldFromResponse(response,"userId"),"10");
-        Assert.assertNotNull(ResponseUtils.extractFieldFromResponse(response,"title"));
-        Assert.assertNotNull(ResponseUtils.extractFieldFromResponse(response,"body"));
-
-
-    }
 }

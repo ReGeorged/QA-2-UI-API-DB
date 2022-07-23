@@ -1,6 +1,7 @@
 package helpers;
 
 import static io.restassured.RestAssured.*;
+
 import constants.Endpoints;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -14,7 +15,7 @@ public class GetHelper {
         baseURI = BASE_URL;
     }
 
-    public String callGetAllUsersAndExtractSpecific(String whichIndex, int expectedCode) {
+    public String callGetAllUsersAndExtractSpecific(int expectedCode, String whichIndex) {
         Response response =
                 given()
                         .contentType(ContentType.JSON)
@@ -26,26 +27,25 @@ public class GetHelper {
                         .response();
         JsonPath path = response.jsonPath();
         String calledString = path.getString("[" + whichIndex + "]");
-        System.out.println(calledString);
         return calledString;
     }
 
 
-    public String callGetOnAllUsers() {
-        String response =
+    public Response callGetOnAllUsers(int statusCode) {
+        Response response =
                 given()
                         .contentType(ContentType.JSON)
                         .accept(ContentType.JSON)
                         .get(Endpoints.GET_ALL_USERS)
                         .then()
-                        .statusCode(200)
+                        .statusCode(statusCode)
                         .extract()
-                        .response().toString();
+                        .response();
         return response;
     }
 
     public Response callGetOnSpecificUser(String whichIndex, int expectedCode) {
-        Response  response =
+        Response response =
                 given()
                         .contentType(ContentType.JSON)
                         .accept(ContentType.JSON)
