@@ -67,7 +67,6 @@ public class PostsHelper {
                 .given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .log().all()
                 .when()
                 .body(posts)
                 .post(Endpoints.POSTS)
