@@ -27,7 +27,7 @@ public class GetTest {
     @Test
     public void step2() {
         GetHelper getHelper = new GetHelper();
-        Response response = GetHelper.callGetOnSpecificPosts("99",200);
+        Response response = getHelper.callGetOnSpecificPosts("99",200);
 
         Assert.assertEquals(ResponseUtils.extractFieldFromResponse(response,"userId"),"10","userId -s dont match");
         Assert.assertEquals(ResponseUtils.extractFieldFromResponse(response,"id"),"99","id -s not match");
@@ -68,11 +68,10 @@ public class GetTest {
 
     @Test
     public void step6(){
-
         GetHelper getHelper = new GetHelper();
         String normalizedResponse1 = NormalizeJsonString.normalizedJsonString(getHelper.callGetAllUsersAndExtractSpecific("4",200));
         String normalizedResponse2 = NormalizeJsonString.normalizedJsonString(getHelper.callGetOnSpecificUser("5",200).asString());
+
         Assert.assertEquals(normalizedResponse1,normalizedResponse2);
     }
-
 }

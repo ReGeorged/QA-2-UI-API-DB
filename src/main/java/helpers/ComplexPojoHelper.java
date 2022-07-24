@@ -1,6 +1,7 @@
 package helpers;
 
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import complexpojo.Address;
 import complexpojo.Company;
@@ -14,6 +15,8 @@ public class ComplexPojoHelper {
 
     public Users deserializeToComplexPojo(String responseJsonAsString) {
         ObjectMapper mapper = new ObjectMapper();
+        //TODO tried to work with jsonpath() still to no avail
+//        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 
         try {
             Users users = mapper.readValue(responseJsonAsString, Users.class);

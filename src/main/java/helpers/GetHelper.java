@@ -72,4 +72,22 @@ public class GetHelper {
                         .response();
         return response;
     }
+
+    public String a(String whichIndex, int expectedCode) {
+        String response =
+                given()
+                        .contentType(ContentType.JSON)
+                        .accept(ContentType.JSON)
+                        .get(Endpoints.GET_ALL_USERS)
+                        .then()
+                        .statusCode(expectedCode)
+                        .extract()
+                        .body()
+                        .jsonPath()
+                        .get("[" + whichIndex + "]")
+                        .toString();
+        return response;
+    }
+
+
 }

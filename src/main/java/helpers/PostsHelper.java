@@ -23,40 +23,6 @@ public class PostsHelper {
     public PostsHelper() {
         RestAssured.baseURI = BASE_URL;
     }
-
-    public List<Posts> OLDDDDDgetAllPosts() {
-//        RestAssured.baseURI = BASE_URL;
-        Response response = RestAssured
-                .given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-
-                .get(Endpoints.POSTS)
-                .andReturn();
-        Type type = new TypeReference<List<Posts>>() {
-        }.getType();
-        List<Posts> postsList = response.as(type);
-        return postsList;
-
-    }
-
-    public String getAllUsers(int expectedCode) {
-        RestAssured.baseURI = BASE_URL;
-
-
-        String response =
-                given().
-                        contentType(ContentType.JSON).
-                        accept(ContentType.JSON).
-                        get(Endpoints.GET_ALL_USERS).
-                        then().
-                        statusCode(expectedCode).
-                        extract().
-                        response().
-                        asString();
-        return response;
-    }
-
     public Response createPost() {
         Posts posts = new Posts();
         posts.setUserId(StringUtils.stringToInt(ConfigManager.getFromConfig("postUSERID")));
@@ -67,6 +33,7 @@ public class PostsHelper {
                 .given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
+                .log().all()
                 .when()
                 .body(posts)
                 .post(Endpoints.POSTS)
