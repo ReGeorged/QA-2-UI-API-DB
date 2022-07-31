@@ -27,6 +27,7 @@ public class GameForm extends Form {
     IButton dropDownBtn = elementFactory.getButton(By.xpath("//div[@class='dropdown__header']"), "drop down menu");
     IButton nextBtn = elementFactory.getButton(By.xpath("//a[@class='button--secondary']"), "next button");
     IButton dotOrgSelector = elementFactory.getButton(By.xpath("//div[@class='dropdown__list-item'][contains(text(),'.org')]"), "button for selecting .org in dropdown");
+
     //List<IButton> dropDownMailList = elementFactory.findElements(By.xpath("//div[@class='dropdown__list']/div[@class='dropdown__list-item']"), ElementType.BUTTON);
     // old selector -- //div[@class=\"dropdown__list\"]//div[not(contains(text(),'other'))]
     public void fillPassword() {
@@ -45,7 +46,7 @@ public class GameForm extends Form {
         dropDownBtn.click();
         dropDownBtn.getJsActions().scrollToTheCenter();
         ////Thread.sleep(3000);
-       // System.out.println(dropDownMailList.size());
+        // System.out.println(dropDownMailList.size());
         dotOrgSelector.click();
 
     }

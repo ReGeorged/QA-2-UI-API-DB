@@ -30,7 +30,7 @@ public class MainTest extends BaseTest {
         InformationForm informationForm = new InformationForm();
         Assert.assertTrue(informationForm.isDisplayed(),"info page is not open");
         informationForm.uploadFile();
-        RobotClass.robotsAreSoCool("src/main/resources/125468339_2756572001294425_628201579656761708_n.jpg");
+        RobotClass.uploadFileUsingRobot("src/main/resources/125468339_2756572001294425_628201579656761708_n.jpg");
         informationForm.waitForImageToUpload();
         informationForm.selectBox();
         informationForm.clickNextBtn();
@@ -61,7 +61,7 @@ public class MainTest extends BaseTest {
         homePage.clickOnBtn();
         Assert.assertTrue(gameForm.isDisplayed(),"\"game\"form is not open");
         cardsCookiesNHelpForm.acceptCookies();
-        Assert.assertFalse(cardsCookiesNHelpForm.checkCookiesBanner(), "cookies banner did not disappear");
+        Assert.assertFalse(cardsCookiesNHelpForm.isCookiesBannerDisplayed(), "cookies banner did not disappear");
 
     }
 

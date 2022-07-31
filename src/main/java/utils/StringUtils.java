@@ -9,15 +9,11 @@ import static org.passay.DigestDictionaryRule.ERROR_CODE;
 
 public class StringUtils {
 
-    public static int filteredToInteger(String S) {
-        //this removes any text from string and leaves only numbers
-        String FilteredToNUmber = S.replaceAll("[^0-9]", "");
-        //this converts filtered Strings to integers
+    public static int filteredToInteger(String str) {
+        String FilteredToNUmber = str.replaceAll("[^0-9]", "");
         int filteredInt = Integer.parseInt(FilteredToNUmber);
         return filteredInt;
     }
-
-
 
     public static String generatePassayPassword() {
         PasswordGenerator gen = new PasswordGenerator();

@@ -14,8 +14,6 @@ public class HomePage extends Form {
     IElementFactory elementFactory = AqualityServices.getElementFactory();
     IButton btn = elementFactory.getButton(By.xpath("//a[@class='start__link']"), "btn");
 
-
-
     public void clickOnBtn() {
         btn.click();
     }
