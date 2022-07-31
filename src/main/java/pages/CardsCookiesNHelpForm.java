@@ -9,10 +9,10 @@ import utils.StringUtils;
 
 public class CardsCookiesNHelpForm {
     IElementFactory elementFactory = AqualityServices.getElementFactory();
-    IButton pageIndicator = elementFactory.getButton(By.xpath("//div[@class=\"page-indicator\"]"), "page indicator");
+    IButton pageIndicator = elementFactory.getButton(By.xpath("//div[@class='page-indicator']"), "page indicator");
     IButton acceptCookiesBtn = elementFactory.getButton(By.xpath("//button[contains(@class,'button--transparent')]"), "accept cookies button");
-    ITextBox cookiesBanner = elementFactory.getTextBox(By.xpath("//div[@class=\"cookies\"]"),"cookies banner");
-    ITextBox mainTimer = elementFactory.getTextBox(By.xpath("//div[contains(@class,\"timer--center\")]"),"main timer");
+    ITextBox cookiesBanner = elementFactory.getTextBox(By.xpath("//div[@class='cookies']"),"cookies banner");
+    ITextBox mainTimer = elementFactory.getTextBox(By.xpath("//div[contains(@class,'timer--center')]"),"main timer");
 
 
     public String getCurrentPage() {

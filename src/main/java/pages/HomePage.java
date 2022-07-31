@@ -8,11 +8,11 @@ import org.openqa.selenium.By;
 
 public class HomePage extends Form {
     public HomePage(){
-        super(By.xpath("//button[@class=\"start__button\"]"), "no button");
+        super(By.xpath("//button[@class='start__button']"), "no button");
     }
 
     IElementFactory elementFactory = AqualityServices.getElementFactory();
-    IButton btn = elementFactory.getButton(By.xpath("//a[@class=\"start__link\"]"), "btn");
+    IButton btn = elementFactory.getButton(By.xpath("//a[@class='start__link']"), "btn");
 
 
 
