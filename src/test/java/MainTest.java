@@ -6,7 +6,7 @@ import utils.RobotClass;
 public class MainTest extends BaseTest {
 
     @Test
-    public static void test1() throws InterruptedException {
+    public static void createProfileAndCheckIt() throws InterruptedException {
         HomePage homePage = new HomePage();
         Assert.assertTrue(homePage.isDisplayed(),"home page is not open");
         homePage.clickOnBtn();
@@ -43,7 +43,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public static void case2(){
+    public static void hideHelpForm(){
         HomePage homePage = new HomePage();
         HelpForm helpForm = new HelpForm();
         Assert.assertTrue(homePage.isDisplayed(),"home page is not open");
@@ -53,7 +53,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public static void case3() {
+    public static void acceptCookies() {
         HomePage homePage = new HomePage();
         GameForm gameForm = new GameForm();
         CardsCookiesNHelpForm cardsCookiesNHelpForm = new CardsCookiesNHelpForm();
@@ -66,7 +66,7 @@ public class MainTest extends BaseTest {
     }
 
     @Test
-    public static void case4(){
+    public static void validateTimer(){
         HomePage homePage = new HomePage();
         GameForm gameForm = new GameForm();
         CardsCookiesNHelpForm cardsCookiesNHelpForm = new CardsCookiesNHelpForm();
