@@ -18,24 +18,24 @@ public class GameForm extends Form {
     }
 
 
-    IElementFactory elementFactory = AqualityServices.getElementFactory();
-    ITextBox passwordField = elementFactory.getTextBox(By.xpath("//input[@placeholder='Choose Password']"), "password text field");
-    ITextBox mailField = elementFactory.getTextBox(By.xpath("//input[@placeholder='Your email']"), "mail text field");
-    ITextBox domainField = elementFactory.getTextBox(By.xpath("//input[@placeholder='Domain']"), "domain field");
-    ICheckBox tcCheckBox = elementFactory.getCheckBox(By.xpath("//span[@class='checkbox__box']"), "terms & conditions check box");
+
+    ITextBox passwordField = getElementFactory().getTextBox(By.xpath("//input[@placeholder='Choose Password']"), "password text field");
+    ITextBox mailField = getElementFactory().getTextBox(By.xpath("//input[@placeholder='Your email']"), "mail text field");
+    ITextBox domainField = getElementFactory().getTextBox(By.xpath("//input[@placeholder='Domain']"), "domain field");
+    ICheckBox tcCheckBox = getElementFactory().getCheckBox(By.xpath("//span[@class='checkbox__box']"), "terms & conditions check box");
     //TODO this is not a button find out what it is!
-    IButton dropDownBtn = elementFactory.getButton(By.xpath("//div[@class='dropdown__header']"), "drop down menu");
-    IButton nextBtn = elementFactory.getButton(By.xpath("//a[@class='button--secondary']"), "next button");
-    IButton dotOrgSelector = elementFactory.getButton(By.xpath("//div[@class='dropdown__list-item'][contains(text(),'.org')]"), "button for selecting .org in dropdown");
+    IButton dropDownBtn = getElementFactory().getButton(By.xpath("//div[@class='dropdown__header']"), "drop down menu");
+    IButton nextBtn = getElementFactory().getButton(By.xpath("//a[@class='button--secondary']"), "next button");
+    IButton dotOrgSelector = getElementFactory().getButton(By.xpath("//div[@class='dropdown__list-item'][contains(text(),'.org')]"), "button for selecting .org in dropdown");
 
     //List<IButton> dropDownMailList = elementFactory.findElements(By.xpath("//div[@class='dropdown__list']/div[@class='dropdown__list-item']"), ElementType.BUTTON);
     // old selector -- //div[@class=\"dropdown__list\"]//div[not(contains(text(),'other'))]
     public void fillPassword() {
-        passwordField.clearAndType(StringUtils.generatePassayPassword() + "a");
+        passwordField.clearAndType(StringUtils.generatePassayPassword(2,10) + "a");
     }
 
     public void fillMail() {
-        mailField.clearAndType(StringUtils.generatePassayPassword() + "a");
+        mailField.clearAndType(StringUtils.generatePassayPassword(2,10) + "a");
     }
 
     public void fillDomain() {

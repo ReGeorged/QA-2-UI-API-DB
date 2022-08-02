@@ -13,17 +13,17 @@ public class HelpForm extends Form {
         super(By.xpath("//span[@class='highlight']"), "send to bottom button");
     }
 
-    IElementFactory elementFactory = AqualityServices.getElementFactory();
-    IButton closeHelpMenuBtn = elementFactory.getButton(By.xpath("//span[@class='highlight']"), "send to bottom button");
-    ILabel helpBoxHiddenElementLocator = elementFactory.getLabel(By.xpath("//div[contains(@class,'is-hidden')]"), "hidden state of help menu");
+
+    IButton closeHelpMenuBtn = getElementFactory().getButton(By.xpath("//span[@class='highlight']"), "send to bottom button");
+    ILabel helpBoxHiddenElementLocator = getElementFactory().getLabel(By.xpath("//div[contains(@class,'is-hidden')]"), "hidden state of help menu");
 
     public void closeHelpMenu() {
         closeHelpMenuBtn.click();
     }
 
 
-    public boolean isHelpBoxHiddenDisplayed() {
-        return helpBoxHiddenElementLocator.state().isDisplayed();
+    public boolean isHelpBoxDisplayed() {
+        return !helpBoxHiddenElementLocator.state().isDisplayed();
     }
 
 }

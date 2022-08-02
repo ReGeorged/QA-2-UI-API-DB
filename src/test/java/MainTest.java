@@ -1,6 +1,7 @@
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
+import utils.FileUtils;
 import utils.RobotClass;
 
 public class MainTest extends BaseTest {
@@ -30,7 +31,8 @@ public class MainTest extends BaseTest {
         InformationForm informationForm = new InformationForm();
         Assert.assertTrue(informationForm.isDisplayed(),"info page is not open");
         informationForm.uploadFile();
-        RobotClass.uploadFileUsingRobot("src/main/resources/125468339_2756572001294425_628201579656761708_n.jpg");
+        System.out.println(FileUtils.getPathToResource("image.jpg"));
+        RobotClass.uploadFileUsingRobot(FileUtils.getPathToResource("image.jpg"));
         informationForm.waitForImageToUpload();
         informationForm.selectBox();
         informationForm.clickNextBtn();
@@ -49,7 +51,7 @@ public class MainTest extends BaseTest {
         Assert.assertTrue(homePage.isDisplayed(),"home page is not open");
         homePage.clickOnBtn();
         helpForm.closeHelpMenu();
-        Assert.assertTrue(helpForm.isHelpBoxHiddenDisplayed(),"help box is not hidden");
+        Assert.assertFalse(helpForm.isHelpBoxDisplayed(),"help box is not hidden");
     }
 
     @Test
@@ -68,7 +70,6 @@ public class MainTest extends BaseTest {
     @Test
     public static void validateTimer(){
         HomePage homePage = new HomePage();
-        GameForm gameForm = new GameForm();
         CardsCookiesNHelpForm cardsCookiesNHelpForm = new CardsCookiesNHelpForm();
         Assert.assertTrue(homePage.isDisplayed(),"home page is not open");
         homePage.clickOnBtn();

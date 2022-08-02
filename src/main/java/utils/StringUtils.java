@@ -15,7 +15,7 @@ public class StringUtils {
         return filteredInt;
     }
 
-    public static String generatePassayPassword() {
+    public static String generatePassayPassword(int specialCharacterAmount,int passwordLength) {
         PasswordGenerator gen = new PasswordGenerator();
         CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
         CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);
@@ -39,9 +39,9 @@ public class StringUtils {
             }
         };
         CharacterRule splCharRule = new CharacterRule(specialChars);
-        splCharRule.setNumberOfCharacters(2);
+        splCharRule.setNumberOfCharacters(specialCharacterAmount);
 
-        String password = gen.generatePassword(10, splCharRule, lowerCaseRule,
+        String password = gen.generatePassword(passwordLength, splCharRule, lowerCaseRule,
                 upperCaseRule, digitRule);
         return password;
     }
