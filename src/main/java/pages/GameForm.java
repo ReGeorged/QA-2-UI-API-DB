@@ -7,6 +7,7 @@ import aquality.selenium.forms.Form;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ISelect;
 import utils.IntUtils;
+import utils.Passay;
 import utils.StringUtils;
 
 import java.util.List;
@@ -31,11 +32,11 @@ public class GameForm extends Form {
     //List<IButton> dropDownMailList = elementFactory.findElements(By.xpath("//div[@class='dropdown__list']/div[@class='dropdown__list-item']"), ElementType.BUTTON);
     // old selector -- //div[@class=\"dropdown__list\"]//div[not(contains(text(),'other'))]
     public void fillPassword() {
-        passwordField.clearAndType(StringUtils.generatePassayPassword(2,10) + "a");
+        passwordField.clearAndType(Passay.generatePassayPassword(2,10) + "a");
     }
 
     public void fillMail() {
-        mailField.clearAndType(StringUtils.generatePassayPassword(2,10) + "a");
+        mailField.clearAndType(Passay.generatePassayPassword(2,10) + "a");
     }
 
     public void fillDomain() {

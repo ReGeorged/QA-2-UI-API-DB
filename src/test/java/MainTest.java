@@ -30,11 +30,11 @@ public class MainTest extends BaseTest {
 
         InformationForm informationForm = new InformationForm();
         Assert.assertTrue(informationForm.isDisplayed(),"info page is not open");
+        informationForm.selectBox();
         informationForm.uploadFile();
         System.out.println(FileUtils.getPathToResource("image.jpg"));
         RobotClass.uploadFileUsingRobot(FileUtils.getPathToResource("image.jpg"));
         informationForm.waitForImageToUpload();
-        informationForm.selectBox();
         informationForm.clickNextBtn();
 
         Assert.assertEquals(cardsCookiesNHelpForm.getCurrentPage(),"3 / 4","current page is not 2/4");
