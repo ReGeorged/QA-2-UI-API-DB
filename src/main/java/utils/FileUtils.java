@@ -5,12 +5,9 @@ import aquality.selenium.core.utilities.JsonSettingsFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileUtils {
-
     public static String getAbsolutePath(String relativePath){
         String absolute = null;
         try {
@@ -21,9 +18,8 @@ public class FileUtils {
         return absolute;
     }
 
-
-    public static String readFromJson(String whatValue){
-        ISettingsFile environment = new JsonSettingsFile("configData.json");
+    public static String readFromJson(String whichJson,String whatValue){
+        ISettingsFile environment = new JsonSettingsFile(whichJson);
         String value = environment.getValue(whatValue).toString();
         return value;
     }
@@ -33,5 +29,4 @@ public class FileUtils {
         var path = Paths.get("src/main/resources/", file);
         return path.toString();
     }
-
 }

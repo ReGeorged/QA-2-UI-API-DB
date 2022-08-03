@@ -5,13 +5,12 @@ import utils.FileUtils;
 import utils.RobotClass;
 
 public class MainTest extends BaseTest {
-
     @Test
     public static void createProfileAndCheckIt() throws InterruptedException {
         HomePage homePage = new HomePage();
         Assert.assertTrue(homePage.isDisplayed(),"home page is not open");
-        homePage.clickOnBtn();
 
+        homePage.clickOnBtn();
         GameForm gameForm = new GameForm();
         CardsCookiesNHelpForm cardsCookiesNHelpForm = new CardsCookiesNHelpForm();
         Assert.assertTrue(gameForm.isDisplayed(),"\"game\" page is not open");
@@ -20,12 +19,9 @@ public class MainTest extends BaseTest {
         gameForm.fillPassword();
         gameForm.fillMail();
         gameForm.fillDomain();
-
         gameForm.clickOnDropDown();
-
         gameForm.clickOnTC();
         gameForm.clickOnNextBtn();
-
         Assert.assertEquals(cardsCookiesNHelpForm.getCurrentPage(),"2 / 4","current page is not 2/4");
 
         InformationForm informationForm = new InformationForm();
@@ -36,14 +32,8 @@ public class MainTest extends BaseTest {
         RobotClass.uploadFileUsingRobot(FileUtils.getPathToResource("image.jpg"));
         informationForm.waitForImageToUpload();
         informationForm.clickNextBtn();
-
         Assert.assertEquals(cardsCookiesNHelpForm.getCurrentPage(),"3 / 4","current page is not 2/4");
-
-
-
-
     }
-
     @Test
     public static void hideHelpForm(){
         HomePage homePage = new HomePage();
@@ -53,7 +43,6 @@ public class MainTest extends BaseTest {
         helpForm.closeHelpMenu();
         Assert.assertFalse(helpForm.isHelpBoxDisplayed(),"help box is not hidden");
     }
-
     @Test
     public static void acceptCookies() {
         HomePage homePage = new HomePage();
@@ -64,9 +53,7 @@ public class MainTest extends BaseTest {
         Assert.assertTrue(gameForm.isDisplayed(),"\"game\"form is not open");
         cardsCookiesNHelpForm.acceptCookies();
         Assert.assertFalse(cardsCookiesNHelpForm.isCookiesBannerDisplayed(), "cookies banner did not disappear");
-
     }
-
     @Test
     public static void validateTimer(){
         HomePage homePage = new HomePage();
@@ -75,6 +62,4 @@ public class MainTest extends BaseTest {
         homePage.clickOnBtn();
         Assert.assertEquals(cardsCookiesNHelpForm.getTimerTime(), 0, "timer should start at 0 --seconds");
     }
-
-
 }

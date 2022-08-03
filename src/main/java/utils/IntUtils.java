@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 public class IntUtils {
-
     public static void randomICheckBoxFromList(List whatList, int howManyElements) {
         Random rand = new Random();
         int numberOfElements = howManyElements;
@@ -16,5 +15,4 @@ public class IntUtils {
             randomElements.check();
         }
     }
-
 }
