@@ -8,6 +8,9 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import utils.ConfigManager;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+
 public class GetHelper {
     private static final String BASE_URL = ConfigManager.getFromConfig("URL");
 
@@ -73,21 +76,17 @@ public class GetHelper {
         return response;
     }
 
-    public String a(String whichIndex, int expectedCode) {
-        String response =
+    public  String a( int expectedCode) {
+        Response response =
                 given()
                         .contentType(ContentType.JSON)
                         .accept(ContentType.JSON)
                         .get(Endpoints.GET_ALL_USERS)
                         .then()
-                        .statusCode(expectedCode)
-                        .extract()
-                        .body()
-                        .jsonPath()
-                        .get("[" + whichIndex + "]")
-                        .toString();
-        return response;
-    }
+                        .statusCode(expectedCode).extract().response();
 
+        String whatWelookingFor = response.path("address.geo.lng.min {it}");
+        return whatWelookingFor;
+    }
 
 }

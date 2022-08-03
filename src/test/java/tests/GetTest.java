@@ -74,4 +74,10 @@ public class GetTest {
 
         Assert.assertEquals(normalizedResponse1,normalizedResponse2);
     }
+
+    @Test
+    public void b(){
+        GetHelper getHelper = new GetHelper();
+        System.out.println(getHelper.a(200));
+    }
 }
