@@ -6,7 +6,7 @@ import aquality.selenium.elements.interfaces.ICheckBox;
 import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.forms.Form;
 import org.openqa.selenium.By;
-import utils.IntUtils;
+import utils.ElementUtils;
 import java.util.List;
 
 
@@ -24,7 +24,7 @@ public class InformationForm extends Form {
     public  void selectBox(){
         unselectAllBox.getJsActions().scrollToTheCenter();
         unselectAllBox.check();
-        IntUtils.randomICheckBoxFromList(checkBoxes,2);
+        ElementUtils.randomICheckBoxFromList(checkBoxes,2);
     }
     public void clickNextBtn(){
         nextBtn.click();
