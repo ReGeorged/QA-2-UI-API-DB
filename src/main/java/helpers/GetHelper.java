@@ -6,24 +6,15 @@ import constants.Endpoints;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import utils.ConfigManager;
 
-import java.util.LinkedHashMap;
-import java.util.List;
 
 public class GetHelper {
-    private static final String BASE_URL = ConfigManager.getFromConfig("URL");
-
-    public GetHelper() {
-        baseURI = BASE_URL;
-    }
-
-    public String callGetAllUsersAndExtractSpecific(String whichIndex, int expectedCode) {
+    public static String getUserById(String whichIndex, int expectedCode) {
         Response response =
                 given()
                         .contentType(ContentType.JSON)
                         .accept(ContentType.JSON)
-                        .get(Endpoints.GET_ALL_USERS)
+                        .get(Endpoints.USERS)
                         .then()
                         .statusCode(expectedCode)
                         .extract()
@@ -34,12 +25,12 @@ public class GetHelper {
     }
 
 
-    public Response callGetOnAllUsers(int statusCode) {
+    public static Response callGetOnAllUsers(int statusCode) {
         Response response =
                 given()
                         .contentType(ContentType.JSON)
                         .accept(ContentType.JSON)
-                        .get(Endpoints.GET_ALL_USERS)
+                        .get(Endpoints.USERS)
                         .then()
                         .statusCode(statusCode)
                         .extract()
@@ -47,12 +38,12 @@ public class GetHelper {
         return response;
     }
 
-    public Response callGetOnSpecificUser(String whichIndex, int expectedCode) {
+    public static  Response callGetOnSpecificUser(String whichIndex, int expectedCode) {
         Response response =
                 given()
                         .contentType(ContentType.JSON)
                         .accept(ContentType.JSON)
-                        .get(Endpoints.GET_SINGLE_USERS + whichIndex)
+                        .get(Endpoints.USERS +"/"+ whichIndex)
                         .then()
                         .statusCode(expectedCode)
                         .extract()
@@ -68,7 +59,7 @@ public class GetHelper {
                 given()
                         .contentType(ContentType.JSON)
                         .accept(ContentType.JSON)
-                        .get(Endpoints.GET_SINGLE_POSTS + whichIndex)
+                        .get(Endpoints.POSTS +"/"+ whichIndex)
                         .then()
                         .statusCode(expectedCode)
                         .extract()
@@ -76,12 +67,12 @@ public class GetHelper {
         return response;
     }
 
-    public  String a( int expectedCode) {
+    public static String a( int expectedCode) {
         Response response =
                 given()
                         .contentType(ContentType.JSON)
                         .accept(ContentType.JSON)
-                        .get(Endpoints.GET_ALL_USERS)
+                        .get(Endpoints.USERS)
                         .then()
                         .statusCode(expectedCode).extract().response();
 

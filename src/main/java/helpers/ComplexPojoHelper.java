@@ -9,11 +9,9 @@ import complexpojo.Geo;
 import complexpojo.Users;
 
 public class ComplexPojoHelper {
-    public ComplexPojoHelper() {
-    }
 
 
-    public Users deserializeToComplexPojo(String responseJsonAsString) {
+    public static Users deserializeToComplexPojo(String responseJsonAsString) {
         ObjectMapper mapper = new ObjectMapper();
         //TODO tried to work with jsonpath() still to no avail
 //        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);

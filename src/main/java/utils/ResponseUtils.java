@@ -10,7 +10,7 @@ public class ResponseUtils {
         return responseString;
     }
 
-    public static String extractFieldFromResponse(Response response,String whatToExtract) {
+    public static String fieldName(Response response, String whatToExtract) {
         String responseString = response.getBody().jsonPath().getString(whatToExtract);
         return responseString;
     }

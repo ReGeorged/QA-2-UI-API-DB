@@ -7,10 +7,10 @@ import org.testng.annotations.Test;
 import utils.ConfigManager;
 import utils.StringUtils;
 
-public class PostTest {
+public class PostTest extends BaseTest {
 
     @Test
-    public void testStep4() {
+    public void createUserAndCheckIT() {
         PostsHelper postsHelper = new PostsHelper();
         Response response = postsHelper.createPost();
 

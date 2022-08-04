@@ -14,40 +14,35 @@ import utils.StringUtils;
 
 import java.util.List;
 
-public class GetTest {
+public class GetTest extends BaseTest {
+
 
 
     @Test
     public void step1(){
-        GetHelper getHelper = new GetHelper();
-        List<String> responseList = getHelper.callGetOnAllUsers(200).jsonPath().getList("id");
+        List<String> responseList = GetHelper.callGetOnAllUsers(200).jsonPath().getList("id");
         Assert.assertTrue(Ordering.natural().isOrdered(responseList),"id ordering is not ascending");
 
     }
     @Test
     public void step2() {
-        GetHelper getHelper = new GetHelper();
-        Response response = getHelper.callGetOnSpecificPosts("99",200);
+        Response response = GetHelper.callGetOnSpecificPosts("99",200);
 
-        Assert.assertEquals(ResponseUtils.extractFieldFromResponse(response,"userId"),"10","userId -s dont match");
-        Assert.assertEquals(ResponseUtils.extractFieldFromResponse(response,"id"),"99","id -s not match");
-        Assert.assertNotNull(ResponseUtils.extractFieldFromResponse(response,"title"),"title is null");
-        Assert.assertNotNull(ResponseUtils.extractFieldFromResponse(response,"body"),"body is null");
+        Assert.assertEquals(ResponseUtils.fieldName(response,"userId"),"10","userId -s dont match");
+        Assert.assertEquals(ResponseUtils.fieldName(response,"id"),"99","id -s not match");
+        Assert.assertNotNull(ResponseUtils.fieldName(response,"title"),"title is null");
+        Assert.assertNotNull(ResponseUtils.fieldName(response,"body"),"body is null");
     }
     @Test
     public void step3(){
-        GetHelper getHelper = new GetHelper();
-        Assert.assertEquals(ResponseUtils.responseBodyToString(getHelper.callGetOnSpecificUser("150",404)),"{}","body is not empty");
+        Assert.assertEquals(ResponseUtils.responseBodyToString(GetHelper.callGetOnSpecificUser("150",404)),"{}","body is not empty");
     }
 
 
     @Test
     public void step5()   {
-        ComplexPojoHelper complexPojoHelper = new ComplexPojoHelper();
-        GetHelper getHelper = new GetHelper();
-
-        String users = getHelper.callGetOnSpecificUser("5",200).asString();
-        Users response =complexPojoHelper.deserializeToComplexPojo(users);
+        String users = GetHelper.callGetOnSpecificUser("5",200).asString();
+        Users response =ComplexPojoHelper.deserializeToComplexPojo(users);
 
         Assert.assertEquals(response.getId(), StringUtils.stringToInt(ConfigManager.getFromConfig("expectedID")),"id -s dont match");
         Assert.assertEquals(response.getName(), ConfigManager.getFromConfig("expectedName"),"Name -s dont match");
@@ -68,16 +63,14 @@ public class GetTest {
 
     @Test
     public void step6(){
-        GetHelper getHelper = new GetHelper();
-        String normalizedResponse1 = NormalizeJsonString.normalizedJsonString(getHelper.callGetAllUsersAndExtractSpecific("4",200));
-        String normalizedResponse2 = NormalizeJsonString.normalizedJsonString(getHelper.callGetOnSpecificUser("5",200).asString());
+        String normalizedResponse1 = NormalizeJsonString.normalizedJsonString(GetHelper.getUserById("4",200));
+        String normalizedResponse2 = NormalizeJsonString.normalizedJsonString(GetHelper.callGetOnSpecificUser("5",200).asString());
 
         Assert.assertEquals(normalizedResponse1,normalizedResponse2);
     }
 
     @Test
     public void b(){
-        GetHelper getHelper = new GetHelper();
-        System.out.println(getHelper.a(200));
+        System.out.println(GetHelper.a(200));
     }
 }
