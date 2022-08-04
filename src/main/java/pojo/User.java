@@ -1,14 +1,10 @@
-package complexpojo;
+package pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
-import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.util.Map;
 
-import static org.testng.AssertJUnit.assertEquals;
 
 @Data
 public class User {
@@ -58,6 +54,4 @@ public class User {
         this.catchPhrase = (String) company.get("catchPhrase");
         this.bs = (String) company.get("bs");
     }
-
-
 }

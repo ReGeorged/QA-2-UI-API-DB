@@ -1,12 +1,10 @@
 package helpers;
 
 import static io.restassured.RestAssured.*;
-
 import constants.Endpoints;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-
 
 public class GetHelper {
     public static String getUserById(String whichIndex, int expectedCode) {
@@ -24,7 +22,6 @@ public class GetHelper {
         return calledString;
     }
 
-
     public static Response callGetOnAllUsers(int statusCode) {
         Response response =
                 given()
@@ -38,8 +35,8 @@ public class GetHelper {
         return response;
     }
 
-    public static  Response callGetOnSpecificUser(String whichIndex, int expectedCode) {
-        Response response =
+    public static  String callGetOnSpecificUser(String whichIndex, int expectedCode) {
+        String response =
                 given()
                         .contentType(ContentType.JSON)
                         .accept(ContentType.JSON)
@@ -47,12 +44,9 @@ public class GetHelper {
                         .then()
                         .statusCode(expectedCode)
                         .extract()
-                        .response();
+                        .response().asString();
         return response;
-
-
     }
-
 
     public static String callGetOnSpecificPosts(String whichIndex, int expectedCode) {
         String response =
@@ -66,18 +60,4 @@ public class GetHelper {
                         .response().asString();
         return response;
     }
-
-    public static String a( int expectedCode) {
-        Response response =
-                given()
-                        .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-                        .get(Endpoints.USERS)
-                        .then()
-                        .statusCode(expectedCode).extract().response();
-
-        String whatWelookingFor = response.path("address.geo.lng.min {it}");
-        return whatWelookingFor;
-    }
-
 }
