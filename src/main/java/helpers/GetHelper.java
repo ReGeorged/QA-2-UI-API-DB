@@ -54,8 +54,8 @@ public class GetHelper {
     }
 
 
-    public static Response callGetOnSpecificPosts(String whichIndex, int expectedCode) {
-        Response response =
+    public static String callGetOnSpecificPosts(String whichIndex, int expectedCode) {
+        String response =
                 given()
                         .contentType(ContentType.JSON)
                         .accept(ContentType.JSON)
@@ -63,7 +63,7 @@ public class GetHelper {
                         .then()
                         .statusCode(expectedCode)
                         .extract()
-                        .response();
+                        .response().asString();
         return response;
     }
 
