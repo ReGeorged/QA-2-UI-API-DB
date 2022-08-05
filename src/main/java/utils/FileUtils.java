@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 
 public class FileUtils {
 
+    public static String testDataJsonPath = "src/main/resources/testData.json";
+
 
     public static String readFileAsString(String file) {
         try {
@@ -18,11 +20,11 @@ public class FileUtils {
             throw new RuntimeException(e);
         }
     }
-    public static String returnFromJson(String whatToGet) {
+    public static String returnFromJson(String whatToGet, String filePath) {
         JSONParser parser = new JSONParser();
         Object obj = null;
         try {
-            obj = parser.parse(new FileReader("src/main/resources/testData.json"));
+            obj = parser.parse(new FileReader(filePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ParseException e) {

@@ -4,23 +4,27 @@ import constants.Endpoints;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import pojo.Posts;
 
 public class PostsHelper {
 
-    public static Response createPost(Posts posts) {
+
+    public static <T> T createPost(Object obj) {
         Response response = RestAssured
                 .given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .log().all()
                 .when()
-                .body(posts)
+                .body(obj)
                 .post(Endpoints.POSTS)
                 .then()
                 .statusCode(201)
                 .extract().response();
-        return response;
+
+
+        return (T) ComplexPojoHelper.pojoHelper(response.asString(), obj.getClass());
+
     }
 }
+
 

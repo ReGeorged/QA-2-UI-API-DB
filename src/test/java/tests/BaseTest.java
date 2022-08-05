@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.baseURI;
 public class BaseTest {
     @BeforeMethod
     public void setUp(){
-    String BASE_URL = FileUtils.returnFromJson("URL");
+    String BASE_URL = FileUtils.returnFromJson("URL",FileUtils.testDataJsonPath);
         baseURI = BASE_URL;
     }
 
