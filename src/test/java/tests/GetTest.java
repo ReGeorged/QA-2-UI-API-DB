@@ -20,7 +20,7 @@ public class GetTest extends BaseTest {
     }
     @Test
     public void step2() {
-        Posts actualPost = ComplexPojoHelper.PostsHelper(GetHelper.callGetOnSpecificPosts("99",200));
+        Posts actualPost = ComplexPojoHelper.pojoHelper(GetHelper.callGetOnSpecificPosts("99",200),Posts.class);
         Posts expectedPost = new Posts();
         expectedPost.setTitle("temporibus sit alias delectus eligendi possimus magni");
         expectedPost.setBody("quo deleniti praesentium dicta non quod\n" +
@@ -40,8 +40,8 @@ public class GetTest extends BaseTest {
 
     @Test
     public void newStep5()   {
-         User actualResponse = ComplexPojoHelper.UsersHelper(GetHelper.callGetOnSpecificUser("5",200));
-         User expectedResponse = ComplexPojoHelper.UsersHelper(FileUtils.readFileAsString("src/main/resources/expectedResult.json"));
+         User actualResponse = ComplexPojoHelper.pojoHelper(GetHelper.callGetOnSpecificUser("5",200),User.class);
+         User expectedResponse = ComplexPojoHelper.pojoHelper(FileUtils.readFileAsString("src/main/resources/expectedResult.json"),User.class);
 
          Assert.assertEquals(actualResponse,expectedResponse,"actual and expected responses dont match");
     }
