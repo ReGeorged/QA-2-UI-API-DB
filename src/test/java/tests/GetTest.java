@@ -10,26 +10,27 @@ import org.testng.annotations.Test;
 import pojo.Posts;
 import utils.*;
 
+import java.util.Collections;
 import java.util.List;
 
 public class GetTest extends BaseTest {
-//    @Test
-//    public void step1(){
-//        List<String> responseList = GetHelper.sendGet(Endpoints.USERS,200).jsonPath().getList("id");
-//        Assert.assertTrue(Ordering.natural().isOrdered(responseList),"id ordering is not ascending");
-//
-//    }
-
-
-
-
+    //TODO Finish this
+    //@Test
+    //public void step1(){
+    //List<Integer> responseList = Collections.singletonList(GetHelper.pojoGetResponse(Endpoints.POSTS, 200, Posts.class).getId());
+    //GetHelper.pojoGetResponse(Endpoints.POSTS, 200, Posts.class).getId();
+    //for()
+    //Assert.assertTrue(Ordering.natural().isOrdered(responseList),"id ordering is not ascending");
+    //}
 
 
     @Test
     public void step2() {
-        Posts actualPost = GetHelper.pojoGetResponse(Endpoints.POSTS+"/99",200,Posts.class);
+        Posts actualPost = GetHelper.pojoGetResponse(Endpoints.POSTS + "/99", 200, Posts.class);
         Posts expectedPost = new Posts();
         expectedPost.setTitle("temporibus sit alias delectus eligendi possimus magni");
+
+        //TODO change the string source
         expectedPost.setBody("quo deleniti praesentium dicta non quod\n" +
                 "aut est molestias\n" +
                 "molestias et officia quis nihil\n" +
@@ -37,13 +38,14 @@ public class GetTest extends BaseTest {
         expectedPost.setUserId(10);
         expectedPost.setId(99);
 
-        Assert.assertTrue(actualPost.equals(expectedPost),"responses dont match");
+        Assert.assertEquals(actualPost, expectedPost, "responses dont match");
     }
+
     @Test
 
-    public void step3(){
-        String errorPostResponse =GetHelper.pojoGetResponse(Endpoints.POSTS+"/150",404,Posts.class).getBody();
-        Assert.assertNull(errorPostResponse,"body is not empty");
+    public void step3() {
+        String errorPostResponse = GetHelper.pojoGetResponse(Endpoints.POSTS + "/150", 404, Posts.class).getBody();
+        Assert.assertNull(errorPostResponse, "body is not empty");
     }
 
 
@@ -58,9 +60,9 @@ public class GetTest extends BaseTest {
 
     @Test
     public void step6() {
-        User newCallGet = GetHelper.pojoGetResponse(Endpoints.USERS + "/5", 200,User.class);
+        User newCallGet = GetHelper.pojoGetResponse(Endpoints.USERS + "/5", 200, User.class);
         User oldCallGet = GetHelper.callGetOnAllUsers(Endpoints.USERS, 200).get(4);
 
-        Assert.assertEquals(newCallGet,oldCallGet);
+        Assert.assertEquals(newCallGet, oldCallGet);
     }
 }
