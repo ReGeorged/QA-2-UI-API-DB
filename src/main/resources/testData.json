@@ -3,5 +3,7 @@
   "postID": "101",
   "postUSERID": "1",
   "postBODY": "hello my baby hello my honey",
-  "postTITLE": "AlexExample"
+  "postTITLE": "AlexExample",
+  "expectedTitle": "temporibus sit alias delectus eligendi possimus magni",
+  "expectedBody": "quo deleniti praesentium dicta non quod\naut est molestias\nmolestias et officia quis nihil\nitaque dolorem quia"
 }

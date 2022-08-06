@@ -9,12 +9,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pojo.Posts;
 import utils.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class GetTest extends BaseTest {
-    //TODO Finish this
     @Test
     public void step1() {
         List<Posts> responseList = GetHelper.pojoCallGetAsList(Endpoints.POSTS, 200, Posts.class);
@@ -31,15 +31,11 @@ public class GetTest extends BaseTest {
     public void step2() {
         Posts actualPost = GetHelper.pojoGetResponse(Endpoints.POSTS + "/99", 200, Posts.class);
         Posts expectedPost = new Posts();
-        expectedPost.setTitle("temporibus sit alias delectus eligendi possimus magni");
-
-        //TODO change the string source
-        expectedPost.setBody("quo deleniti praesentium dicta non quod\n" +
-                "aut est molestias\n" +
-                "molestias et officia quis nihil\n" +
-                "itaque dolorem quia");
+        expectedPost.setTitle(FileUtils.returnFromJson("expectedTitle", FileUtils.testDataJsonPath));
+        expectedPost.setBody(FileUtils.returnFromJson("expectedBody", FileUtils.testDataJsonPath));
         expectedPost.setUserId(10);
         expectedPost.setId(99);
+        System.out.println(actualPost);
 
         Assert.assertEquals(actualPost, expectedPost, "responses dont match");
     }

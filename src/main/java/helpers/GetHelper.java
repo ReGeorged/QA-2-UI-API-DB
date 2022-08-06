@@ -1,8 +1,10 @@
 package helpers;
 
 import static io.restassured.RestAssured.*;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+
 import java.util.List;
 
 public class GetHelper {
@@ -21,17 +23,15 @@ public class GetHelper {
     }
 
 
-    public static<T>List<T> pojoCallGetAsList(String endpoint, int statusCode,Class<T> whatClass) {
+    public static <T> List<T> pojoCallGetAsList(String endpoint, int statusCode, Class<T> whatClass) {
         Response response = sendGet(endpoint, statusCode);
-        List<T> returnedUsers = response.jsonPath().getList(".",whatClass);
+        List<T> returnedUsers = response.jsonPath().getList(".", whatClass);
         return returnedUsers;
     }
 
 
-
-
     public static <T> T pojoGetResponse(String endpoint, int statusCode, Class<T> whatClass) {
         Response response = sendGet(endpoint, statusCode);
-        return  ComplexPojoHelper.pojoHelper(response.asString(), whatClass);
+        return ComplexPojoHelper.pojoHelper(response.asString(), whatClass);
     }
 }
