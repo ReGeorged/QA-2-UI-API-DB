@@ -9,19 +9,22 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pojo.Posts;
 import utils.*;
-
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class GetTest extends BaseTest {
     //TODO Finish this
-    //@Test
-    //public void step1(){
-    //List<Integer> responseList = Collections.singletonList(GetHelper.pojoGetResponse(Endpoints.POSTS, 200, Posts.class).getId());
-    //GetHelper.pojoGetResponse(Endpoints.POSTS, 200, Posts.class).getId();
-    //for()
-    //Assert.assertTrue(Ordering.natural().isOrdered(responseList),"id ordering is not ascending");
-    //}
+    @Test
+    public void step1() {
+        List<Posts> responseList = GetHelper.pojoCallGetAsList(Endpoints.POSTS, 200, Posts.class);
+        ArrayList<Integer> actualList = new ArrayList<>();
+
+        for (int i = 0; i < responseList.size(); i++) {
+            actualList.add(responseList.get(i).getId());
+        }
+        Assert.assertTrue(Ordering.natural().isOrdered(actualList), "id ordering is not ascending");
+    }
 
 
     @Test
@@ -52,7 +55,7 @@ public class GetTest extends BaseTest {
     @Test
 
     public void newStep5() {
-        User actualResponse = GetHelper.callGetOnAllUsers(Endpoints.USERS, 200).get(4);
+        User actualResponse = GetHelper.pojoCallGetAsList(Endpoints.USERS, 200, User.class).get(4);
         User expectedResponse = ComplexPojoHelper.pojoHelper(FileUtils.readFileAsString("src/main/resources/expectedResult.json"), User.class);
 
         Assert.assertEquals(actualResponse, expectedResponse, "actual and expected responses dont match");
@@ -61,7 +64,7 @@ public class GetTest extends BaseTest {
     @Test
     public void step6() {
         User newCallGet = GetHelper.pojoGetResponse(Endpoints.USERS + "/5", 200, User.class);
-        User oldCallGet = GetHelper.callGetOnAllUsers(Endpoints.USERS, 200).get(4);
+        User oldCallGet = GetHelper.pojoCallGetAsList(Endpoints.USERS, 200, User.class).get(4);
 
         Assert.assertEquals(newCallGet, oldCallGet);
     }

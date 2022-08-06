@@ -1,13 +1,8 @@
 package helpers;
 
 import static io.restassured.RestAssured.*;
-
 import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import pojo.User;
-
-import java.util.Arrays;
 import java.util.List;
 
 public class GetHelper {
@@ -24,11 +19,16 @@ public class GetHelper {
                         .response();
         return response;
     }
-    public static List<User> callGetOnAllUsers(String endpoint, int statusCode) {
+
+
+    public static<T>List<T> pojoCallGetAsList(String endpoint, int statusCode,Class<T> whatClass) {
         Response response = sendGet(endpoint, statusCode);
-        List<User> returnedUsers = Arrays.asList(response.getBody().as(User[].class));
+        List<T> returnedUsers = response.jsonPath().getList(".",whatClass);
         return returnedUsers;
     }
+
+
+
 
     public static <T> T pojoGetResponse(String endpoint, int statusCode, Class<T> whatClass) {
         Response response = sendGet(endpoint, statusCode);
