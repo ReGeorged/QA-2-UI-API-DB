@@ -1,3 +1,4 @@
+import aquality.selenium.browser.AqualityServices;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
@@ -28,7 +29,6 @@ public class MainTest extends BaseTest {
         Assert.assertTrue(informationForm.isDisplayed(),"info page is not open");
         informationForm.selectBox();
         informationForm.uploadFile();
-        System.out.println(FileUtils.getPathToResource("image.jpg"));
         RobotClass.uploadFileUsingRobot(FileUtils.getPathToResource("image.jpg"));
         informationForm.waitForImageToUpload();
         informationForm.clickNextBtn();
