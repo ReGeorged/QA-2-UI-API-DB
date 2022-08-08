@@ -1,5 +1,6 @@
 package pages;
 
+import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
@@ -31,6 +32,7 @@ public class CardsCookiesNHelpForm extends Form {
     }
 
     public Integer getTimerTime() {
+        AqualityServices.getLogger().info("Getting timer time");
         String timerText = mainTimer.getText();
         int timeToInt = StringUtils.filteredToInteger(timerText);
         return timeToInt;

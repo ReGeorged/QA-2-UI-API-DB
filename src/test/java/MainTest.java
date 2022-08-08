@@ -1,6 +1,7 @@
-import aquality.selenium.browser.AqualityServices;
+import aquality.selenium.core.logging.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import pages.*;
 import utils.FileUtils;
 import utils.RobotClass;
@@ -10,6 +11,7 @@ public class MainTest extends BaseTest {
     public static void createProfileAndCheckIt() throws InterruptedException {
         HomePage homePage = new HomePage();
         Assert.assertTrue(homePage.isDisplayed(),"home page is not open");
+        Logger.getInstance().info("VERY SCARY MESSAGE");
 
         homePage.clickOnBtn();
         GameForm gameForm = new GameForm();
@@ -32,7 +34,7 @@ public class MainTest extends BaseTest {
         RobotClass.uploadFileUsingRobot(FileUtils.getPathToResource("image.jpg"));
         informationForm.waitForImageToUpload();
         informationForm.clickNextBtn();
-        Assert.assertEquals(cardsCookiesNHelpForm.getCurrentPage(),"3 / 4","current page is not 2/4");
+        Assert.assertEquals(cardsCookiesNHelpForm.getCurrentPage(),"3 / 4","current page is not 3/4");
     }
     @Test
     public static void hideHelpForm(){
