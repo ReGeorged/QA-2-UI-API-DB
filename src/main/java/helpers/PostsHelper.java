@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 public class PostsHelper {
 
 
-    public static <T> T createPost(Object obj) {
+    public static <T> T createPost(Object obj,int expectedCode) {
         Response response = RestAssured
                 .given()
                 .contentType(ContentType.JSON)
@@ -18,12 +18,10 @@ public class PostsHelper {
                 .body(obj)
                 .post(Endpoints.POSTS)
                 .then()
-                .statusCode(201)
+                .statusCode(expectedCode)
                 .extract().response();
 
-
-        return (T) ComplexPojoHelper.pojoHelper(response.asString(), obj.getClass());
-
+        return (T) ComplexPojoHelper.jsonPojoHelper(response.asString(), obj.getClass());
     }
 }
 

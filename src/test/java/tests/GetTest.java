@@ -2,6 +2,7 @@ package tests;
 
 import com.google.common.collect.Ordering;
 import constants.Endpoints;
+import helpers.JsonMockApiHelper;
 import pojo.User;
 import helpers.ComplexPojoHelper;
 import helpers.GetHelper;
@@ -17,7 +18,7 @@ import java.util.List;
 public class GetTest extends BaseTest {
     @Test
     public void step1() {
-        List<Posts> responseList = GetHelper.pojoCallGetAsList(Endpoints.POSTS, 200, Posts.class);
+        List<Posts> responseList = JsonMockApiHelper.getAllPostsList();
         ArrayList<Integer> actualList = new ArrayList<>();
 
         for (int i = 0; i < responseList.size(); i++) {
@@ -29,13 +30,12 @@ public class GetTest extends BaseTest {
 
     @Test
     public void step2() {
-        Posts actualPost = GetHelper.pojoGetResponse(Endpoints.POSTS + "/99", 200, Posts.class);
+        Posts actualPost = GetHelper.getPostById("99", 200);
         Posts expectedPost = new Posts();
         expectedPost.setTitle(FileUtils.returnFromJson("expectedTitle", FileUtils.testDataJsonPath));
         expectedPost.setBody(FileUtils.returnFromJson("expectedBody", FileUtils.testDataJsonPath));
         expectedPost.setUserId(10);
         expectedPost.setId(99);
-        System.out.println(actualPost);
 
         Assert.assertEquals(actualPost, expectedPost, "responses dont match");
     }
@@ -43,7 +43,7 @@ public class GetTest extends BaseTest {
     @Test
 
     public void step3() {
-        String errorPostResponse = GetHelper.pojoGetResponse(Endpoints.POSTS + "/150", 404, Posts.class).getBody();
+        String errorPostResponse = GetHelper.getPostById("150", 404).getBody();
         Assert.assertNull(errorPostResponse, "body is not empty");
     }
 
@@ -51,17 +51,17 @@ public class GetTest extends BaseTest {
     @Test
 
     public void newStep5() {
-        User actualResponse = GetHelper.pojoCallGetAsList(Endpoints.USERS, 200, User.class).get(4);
-        User expectedResponse = ComplexPojoHelper.pojoHelper(FileUtils.readFileAsString("src/main/resources/expectedResult.json"), User.class);
+        User actualResponse = JsonMockApiHelper.getAllUsersList().get(4);
+        User expectedResponse = ComplexPojoHelper.jsonPojoHelper(FileUtils.readFileAsString("src/main/resources/expectedResult.json"), User.class);
 
         Assert.assertEquals(actualResponse, expectedResponse, "actual and expected responses dont match");
     }
 
     @Test
     public void step6() {
-        User newCallGet = GetHelper.pojoGetResponse(Endpoints.USERS + "/5", 200, User.class);
+        User newCallGet = GetHelper.getUserById("5", 200);
         User oldCallGet = GetHelper.pojoCallGetAsList(Endpoints.USERS, 200, User.class).get(4);
 
-        Assert.assertEquals(newCallGet, oldCallGet);
+        Assert.assertEquals(newCallGet, oldCallGet, "responses dont match");
     }
 }

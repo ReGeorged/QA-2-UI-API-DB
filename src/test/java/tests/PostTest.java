@@ -15,11 +15,8 @@ public class PostTest extends BaseTest {
         actualPost.setId(Integer.parseInt(FileUtils.returnFromJson("postID", FileUtils.testDataJsonPath)));
         actualPost.setTitle(FileUtils.returnFromJson("postTITLE", FileUtils.testDataJsonPath));
         actualPost.setBody(FileUtils.returnFromJson("postBODY", FileUtils.testDataJsonPath));
-        Posts createdPosts = PostsHelper.createPost(actualPost);
+        Posts createdPosts = PostsHelper.createPost(actualPost, 201);
 
         Assert.assertEquals(actualPost, createdPosts, "sent data and received -- dont match");
-
-
     }
-
 }

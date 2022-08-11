@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ComplexPojoHelper {
 
-    public static <T> T pojoHelper(String whatToRead, Class<T> whatClass) {
+    public static <T> T jsonPojoHelper(String whatToRead, Class<T> whatClass) {
         try {
             T user = new ObjectMapper()
                     .readerFor(whatClass)
