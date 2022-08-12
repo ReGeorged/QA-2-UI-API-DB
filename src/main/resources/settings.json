@@ -12,7 +12,7 @@
       },
       "options": {
         "intl.accept_languages": "en",
-        "safebrowsing.enabled": "true",
+        "safebrowsing.enabled": "false",
         "profile.default_content_settings.popups": "0",
         "disable-popup-blocking": "true",
         "download.prompt_for_download": "false",

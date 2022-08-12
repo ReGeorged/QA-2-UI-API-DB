@@ -14,6 +14,7 @@ public class HomePage extends Form {
 
     public void clickOnPrivacyBtn() {
         privacyButtonAccept.click();
+
     }
 
 }

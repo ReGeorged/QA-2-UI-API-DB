@@ -19,6 +19,6 @@ public class BaseTest {
     @AfterMethod
     public static void quit() {
 
-        //browser.quit();
+        browser.quit();
     }
 }
