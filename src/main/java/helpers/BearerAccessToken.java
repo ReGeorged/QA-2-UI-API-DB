@@ -1,6 +1,4 @@
 package helpers;
-
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
@@ -8,7 +6,7 @@ import static io.restassured.RestAssured.given;
 public class BearerAccessToken {
 
 
-    public static String getBearerAccessToken(String code,String client_id, String client_secret,String redirect_uri) {
+    public static Response getBearerAccessToken(String code,String client_id, String client_secret,String redirect_uri) {
         Response res = given()
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .queryParam("code", code)
@@ -21,10 +19,23 @@ public class BearerAccessToken {
                 then()
                 .assertThat().statusCode(200).extract().response();
 
-        System.out.println("The response with Access Token is : " +res.asString());
-        JsonPath json = res.jsonPath();
-        String accessToken = json.get("access_token");
-        return accessToken;
+        return res;
+    }
+
+    public static Response refreshBearerAccessToken(String refresh_token,String client_id, String client_secret){
+
+        Response res = given()
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .queryParam("client_id", client_id)
+                .queryParam("client_secret", client_secret)
+                .queryParam("refresh_token", refresh_token)
+                .queryParam("grant_type","refresh_token").
+                when()
+                .post("https://oauth2.googleapis.com/token").
+                then()
+                .assertThat().statusCode(200).extract().response();
+        return res;
+
     }
 
 
