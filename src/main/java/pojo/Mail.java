@@ -3,13 +3,13 @@ package pojo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 @Data
 public class Mail {
 
-    public String id;
-    public String threadId;
+    public List<Messages> messages;
     public String nextPageToken;
     public int resultSizeEstimate;
 
@@ -18,12 +18,7 @@ public class Mail {
     public void unpackMail(Map<String, Object> mail) {
         this.nextPageToken = (String) mail.get("nextPageToken");
         this.resultSizeEstimate = (int) mail.get("resultSizeEstimate");
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonProperty("messages")
-    public void unpackMessages(Map<String, Object> mail) {
-        this.id = (String) mail.get("id");
-        this.threadId = (String) mail.get("threadId");
+        this.messages = (List<Messages>) mail.get("messages");
     }
 }
+
