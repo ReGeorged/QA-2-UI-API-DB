@@ -2,6 +2,8 @@ package utils;
 
 import aquality.selenium.core.utilities.ISettingsFile;
 import aquality.selenium.core.utilities.JsonSettingsFile;
+
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -13,28 +15,28 @@ import java.io.IOException;
 
 public class FileUtils {
 
-    public static boolean isEmpty(String pathString)  {
-        Path path = Paths.get(pathString);
-        if (Files.isDirectory(path)) {
-            try (DirectoryStream<Path> directory = Files.newDirectoryStream(path)) {
-                return !directory.iterator().hasNext();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return false;
-    }
-
-    public static void deleteIfNotEmpty(String path) {
-        try {
-            if (isEmpty(path) == false) {
-                File directory = new File(path);
-                org.apache.commons.io.FileUtils.cleanDirectory(directory);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public static boolean isEmpty(String pathString)  {
+//        Path path = Paths.get(pathString);
+//        if (Files.isDirectory(path)) {
+//            try (DirectoryStream<Path> directory = Files.newDirectoryStream(path)) {
+//                return !directory.iterator().hasNext();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        return false;
+//    }
+//
+//    public static void deleteIfNotEmpty(String path) {
+//        try {
+//            if (isEmpty(path) == false) {
+//                File directory = new File(path);
+//                org.apache.commons.io.FileUtils.cleanDirectory(directory);
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     public static String getAbsolutePath(String relativePath){
         String absolute = null;
@@ -58,18 +60,25 @@ public class FileUtils {
         return path.toString();
     }
 
-    public static void mailBodyToFile(String whatString, String whatPath) throws IOException {
+    public static void mailBodyToFile(String whatString, String whatPath){
 
         String finalPath = "src/main/resources/"+whatPath;
 
-//        Files.createDirectories(Paths.get(finalPath));
 
         String str = whatString;
-        FileOutputStream outputStream = new FileOutputStream(finalPath+".html");
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(finalPath+".html");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         byte[] strToBytes = str.getBytes();
-        outputStream.write(strToBytes);
-
-        outputStream.close();
+        try {
+            outputStream.write(strToBytes);
+            outputStream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
