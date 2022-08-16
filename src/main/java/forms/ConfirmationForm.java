@@ -3,7 +3,7 @@ package forms;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.forms.Form;
 import org.openqa.selenium.By;
-import utils.DriverUtils;
+
 
 public class ConfirmationForm extends Form {
 
@@ -16,7 +16,6 @@ public class ConfirmationForm extends Form {
     }
 
     public void clickOnBackToSiteBtn(){
-        DriverUtils.switchToTabByInt(1);
         backToSiteBtn.getJsActions().scrollToTheCenter();
         backToSiteBtn.click();
 

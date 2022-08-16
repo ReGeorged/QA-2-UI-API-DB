@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pojo.Mail;
 import utils.FileUtils;
+import utils.StringUtils;
 
 
 public class MainTest {
@@ -33,11 +34,7 @@ public class MainTest {
         String id = PojoHelper.jsonPojoHelper(response, Mail.class).getMessages().get(0).getId();
         String body =BearerAccessToken.getSpecificMailBodyViaId(refreshedToken,id);
 
-        FileUtils.mailBodyToFile(body,"index");
-        BrowserBase.initialize().goTo(FileUtils.getAbsolutePath("src/main/resources/index.html"));
-
-        MailForm mailForm = new MailForm();
-        mailForm.clickOnConfirmBtn();
+        BrowserBase.initialize().goTo(StringUtils.extractLinkFromMail(body));
         ConfirmationForm confirmationForm = new ConfirmationForm();
         confirmationForm.clickOnBackToSiteBtn();
 
