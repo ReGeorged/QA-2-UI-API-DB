@@ -1,5 +1,6 @@
 package helpers;
 
+import constants.Endpoints;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import utils.FileUtils;
@@ -9,7 +10,7 @@ import java.util.Base64;
 
 import static io.restassured.RestAssured.given;
 
-public class BearerAccessToken {
+public class GmailApi {
 
 
     public static Response getBearerAccessToken(String code, String client_id, String client_secret, String redirect_uri) {
@@ -21,7 +22,7 @@ public class BearerAccessToken {
                 .queryParam("redirect_uri", redirect_uri)
                 .queryParam("grant_type", "authorization_code").
                 when()
-                .post("https://oauth2.googleapis.com/token").
+                .post(Endpoints.gmailOath).
                 then()
                 .assertThat().statusCode(200).extract().response();
 
@@ -37,7 +38,7 @@ public class BearerAccessToken {
                 .queryParam("refresh_token", FileUtils.readFromJson("client_secret.json", "/installed/refresh_token"))
                 .queryParam("grant_type", "refresh_token").
                 when()
-                .post("https://oauth2.googleapis.com/token").
+                .post(Endpoints.gmailOath).
                 then()
                 .assertThat().statusCode(200).extract().response();
 
@@ -48,27 +49,27 @@ public class BearerAccessToken {
 
     }
 
-    public static Response getAllMail(String token) {
+    public static Response getAllMail(String token, int expectedCode) {
         Response res = given()
                 .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
                 .when()
-                .get("https://gmail.googleapis.com/gmail/v1/users/me/messages/")
+                .get(Endpoints.gmailMessages)
                 .then()
-                .assertThat().statusCode(200).extract().response();
+                .assertThat().statusCode(expectedCode).extract().response();
 
         return res;
 
     }
 
-    public static String getSpecificMailBodyViaId(String token, String id) {
+    public static String getSpecificMailBodyViaId(String token, String id, int expectedCode) {
         Response res = given()
                 .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
                 .when()
-                .get("https://gmail.googleapis.com/gmail/v1/users/me/messages/" + id)
+                .get(Endpoints.gmailMessages + id)
                 .then()
-                .assertThat().statusCode(200).extract().response();
+                .assertThat().statusCode(expectedCode).extract().response();
 
         JsonPath json = res.jsonPath();
         String base64Body = json.get("payload.parts[0].body.data");

@@ -12,4 +12,9 @@ public class BrowserBase {
         browser.maximize();
         return browser;
     }
+
+    public static void quit(){
+        browser.quit();
+        browser=null;
+    }
 }
