@@ -14,7 +14,7 @@ public class MainTest extends BaseTest {
 
 
     @Test
-    public void euroNews() {
+    public void euroNews() throws InterruptedException {
         BrowserBase.initialize().goTo(FileUtils.readFromJson("configData.json", "/url"));
         BrowserBase.initialize().waitForPageToLoad();
 
@@ -25,7 +25,8 @@ public class MainTest extends BaseTest {
         TopForm topForm = new TopForm();
         topForm.clickOnNewsLetter();
         NewsLetterForm newsLetterForm = new NewsLetterForm();
-        int randomNewsLetter = IntUtils.getRandInRange(0, newsLetterForm.getNewsLetterAmount());
+        int randomNewsLetter = IntUtils.getRandInRange(1, newsLetterForm.getNewsLetterAmount());
+        System.out.println(newsLetterForm.getNewsLetterAmount());
         newsLetterForm.selectRandomLetter(randomNewsLetter);
         newsLetterForm.sendKeysToEmail(FileUtils.readFromJson("configData.json", "/email"));
 
@@ -39,7 +40,17 @@ public class MainTest extends BaseTest {
         confirmationForm.clickOnBackToSiteBtn();
 
         topForm.clickOnNewsLetter();
+        Thread.sleep(5000);
+
+        int iframeSize = newsLetterForm.getIframeSize();
+        System.out.println(iframeSize);
+
         newsLetterForm.selectRandomPreview(randomNewsLetter);
+
+
+        newsLetterForm.switchToIFrame(iframeSize);
+        System.out.println(newsLetterForm.getUnsubscribeLink());
+
     }
 }
 
