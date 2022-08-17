@@ -16,10 +16,5 @@ public class FileUtils {
         return value;
     }
 
-    public static String getPathToResource(String resourceName) {
-        String file = resourceName;
-        var path = Paths.get("src/main/resources/", file);
-        return path.toString();
-    }
 
 }
