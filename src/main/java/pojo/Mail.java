@@ -8,7 +8,6 @@ import java.util.Map;
 
 @Data
 public class Mail {
-
     public List<Messages> messages;
     public String nextPageToken;
     public int resultSizeEstimate;

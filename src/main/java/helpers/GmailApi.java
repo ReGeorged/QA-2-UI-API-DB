@@ -45,10 +45,7 @@ public class GmailApi {
         JsonPath json = res.jsonPath();
         String refreshedAccessToken = json.get("access_token");
         return refreshedAccessToken;
-
-
     }
-
     public static Response getAllMail(String token, int expectedCode) {
         Response res = given()
                 .header("Authorization", "Bearer " + token)
@@ -57,9 +54,7 @@ public class GmailApi {
                 .get(Endpoints.gmailMessages)
                 .then()
                 .assertThat().statusCode(expectedCode).extract().response();
-
         return res;
-
     }
 
     public static String getSpecificMailBodyViaId(String token, String id, int expectedCode) {
@@ -81,8 +76,5 @@ public class GmailApi {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-
     }
-
-
 }

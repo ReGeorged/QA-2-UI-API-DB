@@ -1,10 +1,10 @@
 package forms;
 
+import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.elements.ElementType;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.forms.Form;
-import base.BrowserBase;
 import org.openqa.selenium.By;
 
 import java.util.List;
@@ -21,10 +21,9 @@ public class NewsLetterForm extends Form {
         super(By.xpath("//span[contains(@class,'text-secondary')]"), "our newsletter label");
     }
 
-    public boolean checkEmailInputField(){
+    public boolean isEmailFieldDisplayed(){
         return emailField.state().isDisplayed();
     }
-
     public void selectRandomLetter(int randomIndex) {
         ILabel selectNewsLetter = newsLetterSelector.get(randomIndex);
         selectNewsLetter.getJsActions().scrollToTheCenter();
@@ -35,31 +34,28 @@ public class NewsLetterForm extends Form {
         return newsLetterSelector.size();
     }
 
-    public void sendKeysToEmail(String whatEMail) {
-        emailField.sendKeys(whatEMail);
+    public void submitEmail(String email) {
+        emailField.sendKeys(email);
         emailSubmitBtn.clickAndWait();
     }
-
     public void selectRandomPreview(int randomIndex) {
         IButton previewButton = previewListBtn.get(randomIndex);
         previewButton.getJsActions().scrollToTheCenter();
         previewButton.click();
-
     }
 
     public boolean checkPreviewOpen(){
+        waitHelperElement.state().waitForDisplayed();
         return waitHelperElement.state().isDisplayed();
     }
 
-    public void switchToIFrame(int whichIframe){
+    public void waitForCloseButtonInPreview(){
         waitHelperElement.state().waitForDisplayed();
 
-        BrowserBase.initialize().getDriver().switchTo().frame(whichIframe);
     }
     public String getUnsubscribeLink(){
         unsubscribeLink.state().waitForDisplayed();
         unsubscribeLink.getJsActions().scrollToTheCenter();
-
         return unsubscribeLink.getAttribute("href");
     }
 
