@@ -6,5 +6,4 @@ import lombok.Data;
 public class Messages {
     public String id;
     public String threadId;
-
 }

@@ -1,4 +1,5 @@
 package utils;
+
 public class StringUtils {
     public static String extractLinkFromMail(String linkFromWhatString) {
         String[] splitOne = linkFromWhatString.split("<a href=\"");
