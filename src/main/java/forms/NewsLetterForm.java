@@ -13,8 +13,6 @@ public class NewsLetterForm extends Form {
     private IButton emailSubmitBtn = getElementFactory().getButton(By.xpath("//input[@data-event='NL_submit']"), "email submit button");
     private ILabel emailField = getElementFactory().getLabel(By.xpath("//input[@type='email']"), "email field ");
     private List<IButton> previewListBtn = getElementFactory().findElements(By.xpath("//i[contains(@class,'fa-eye')]"), "list of preview buttons", ElementType.BUTTON);
-    private ILabel unsubscribeLink = getElementFactory().getLabel(By.xpath("//a[contains(text(),'unsubscribe by clicking here')]"), "unsubscribe href");
-    private ILabel waitHelperElement = getElementFactory().getLabel(By.xpath("//a[@class='close-modal ']"), "close button of preview");
 
     public NewsLetterForm() {
         super(By.xpath("//span[contains(@class,'text-secondary')]"), "our newsletter label");
@@ -39,25 +37,12 @@ public class NewsLetterForm extends Form {
         emailSubmitBtn.clickAndWait();
     }
 
-    public void selectRandomPreview(int randomIndex) {
+    public PreviewForm selectRandomPreview(int randomIndex) {
         IButton previewButton = previewListBtn.get(randomIndex);
         previewButton.getJsActions().scrollToTheCenter();
         previewButton.click();
+        PreviewForm previewForm = new PreviewForm();
+        return previewForm;
     }
 
-    public boolean checkPreviewOpen() {
-        waitHelperElement.state().waitForDisplayed();
-        return waitHelperElement.state().isDisplayed();
-    }
-
-    public void waitForCloseButtonInPreview() {
-        waitHelperElement.state().waitForDisplayed();
-
-    }
-
-    public String getUnsubscribeLink() {
-        unsubscribeLink.state().waitForDisplayed();
-        unsubscribeLink.getJsActions().scrollToTheCenter();
-        return unsubscribeLink.getAttribute("href");
-    }
 }

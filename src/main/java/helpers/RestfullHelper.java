@@ -4,14 +4,16 @@ import constants.Endpoints;
 import constants.RestHashMaps;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.HashMap;
+
 import static io.restassured.RestAssured.given;
 
 public class RestfullHelper {
 
-    public static Response postWithHeadersAndParams(HashMap headersHashMap, HashMap queryHashMap, String endPoint, int expectedCode){
+    public static Response postWithHeadersAndParams(HashMap headersHashMap, HashMap queryHashMap, String endPoint, int expectedCode) {
         Response res = given()
                 .headers(headersHashMap)
                 .queryParams(queryHashMap)
@@ -21,7 +23,8 @@ public class RestfullHelper {
                 .assertThat().statusCode(expectedCode).extract().response();
         return res;
     }
-    public static Response getWithHeaders(HashMap headersHashMap, String endPoint, int expectedCode){
+
+    public static Response getWithHeaders(HashMap headersHashMap, String endPoint, int expectedCode) {
         Response res = given()
                 .headers(headersHashMap)
                 .when()
@@ -49,7 +52,7 @@ public class RestfullHelper {
 
     public static String getSpecificMailBodyViaId(String token, String id, int expectedCode) {
         HashMap headerHashMap = RestHashMaps.tokenHeaderMap(token);
-        Response res = getWithHeaders(headerHashMap,Endpoints.gmailMessages+id,expectedCode);
+        Response res = getWithHeaders(headerHashMap, Endpoints.gmailMessages + id, expectedCode);
         JsonPath json = res.jsonPath();
         String base64Body = json.get("payload.parts[0].body.data");
         byte[] decodedArray = Base64.getUrlDecoder().decode(base64Body);
