@@ -1,5 +1,5 @@
 import aquality.selenium.browser.AqualityServices;
-import constants.Enums;
+import constants.ConfigurationData;
 import forms.*;
 import helpers.RestfullHelper;
 import helpers.PojoHelper;
@@ -29,7 +29,7 @@ public class MainTest extends BaseTest {
         }
         newsLetterForm.selectRandomLetter(randomNewsLetter);
         Assert.assertTrue(newsLetterForm.isEmailFieldDisplayed(), "Email input field not found");
-        newsLetterForm.submitEmail(Enums.EMAIL.getData());
+        newsLetterForm.submitEmail(ConfigurationData.EMAIL.getData());
 
         String refreshedToken = RestfullHelper.refreshBearerAccessToken(200);
         String response = RestfullHelper.getAllMail(refreshedToken, 200).asString();
@@ -46,7 +46,7 @@ public class MainTest extends BaseTest {
         Assert.assertTrue(homePage.isDisplayed(), "Home page is not open");
         topForm.clickOnNewsLetter();
 
-        PreviewForm previewForm = newsLetterForm.selectRandomPreview(randomNewsLetter);
+        PreviewForm previewForm = newsLetterForm.selectPreviewById(randomNewsLetter);
         Assert.assertTrue(previewForm.isDisplayed(), "Preview is not open");
         Assert.assertTrue(previewForm.isCloseBtnDisplayed(), "Close button is not displayed");
         AqualityServices.getBrowser().getDriver().switchTo().frame(7);
@@ -55,7 +55,7 @@ public class MainTest extends BaseTest {
 
         UnsubscribeForm unsubscribeForm = new UnsubscribeForm();
         Assert.assertTrue(unsubscribeForm.isDisplayed(), "Unsubscribe page not found");
-        unsubscribeForm.sendEmail(Enums.EMAIL.getData());
+        unsubscribeForm.sendEmail(ConfigurationData.EMAIL.getData());
         unsubscribeForm.clickUnsubscribeBtn();
         Assert.assertTrue(unsubscribeForm.isUnsubscribeMessageDisplayed(), "Unsubscribed -- confirmation not found");
 

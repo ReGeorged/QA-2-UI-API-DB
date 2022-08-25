@@ -24,7 +24,6 @@ public class NewsLetterForm extends Form {
 
     public void selectRandomLetter(int randomIndex) {
         ILabel selectNewsLetter = newsLetterSelector.get(randomIndex);
-        selectNewsLetter.getJsActions().scrollToTheCenter();
         selectNewsLetter.clickAndWait();
     }
 
@@ -37,7 +36,7 @@ public class NewsLetterForm extends Form {
         emailSubmitBtn.clickAndWait();
     }
 
-    public PreviewForm selectRandomPreview(int randomIndex) {
+    public PreviewForm selectPreviewById(int randomIndex) {
         IButton previewButton = previewListBtn.get(randomIndex);
         previewButton.getJsActions().scrollToTheCenter();
         previewButton.click();

@@ -1,6 +1,6 @@
 import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.browser.Browser;
-import constants.Enums;
+import constants.ConfigurationData;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -11,7 +11,7 @@ public class BaseTest {
     public static void start() {
         browser = AqualityServices.getBrowser();
         browser.maximize();
-        browser.goTo(Enums.URL.getData());
+        browser.goTo(ConfigurationData.URL.getData());
         browser.waitForPageToLoad();
     }
 

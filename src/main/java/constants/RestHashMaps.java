@@ -6,9 +6,9 @@ public class RestHashMaps {
 
     public static HashMap gmailRefreshParamsMap() {
         HashMap<String, String> refreshTokenParams = new HashMap();
-        refreshTokenParams.put("client_id", Enums.CLIENT_ID.getData());
-        refreshTokenParams.put("client_secret", Enums.CLIENT_SECRET.getData());
-        refreshTokenParams.put("refresh_token", Enums.REFRESH_TOKEN.getData());
+        refreshTokenParams.put("client_id", ConfigurationData.CLIENT_ID.getData());
+        refreshTokenParams.put("client_secret", ConfigurationData.CLIENT_SECRET.getData());
+        refreshTokenParams.put("refresh_token", ConfigurationData.REFRESH_TOKEN.getData());
         refreshTokenParams.put("grant_type", "refresh_token");
         return refreshTokenParams;
     }
