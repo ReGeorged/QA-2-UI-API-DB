@@ -1,12 +1,18 @@
 import aquality.selenium.core.logging.Logger;
+import helpers.SqlHelper;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import pages.*;
 import utils.FileUtils;
+import utils.IntUtils;
 import utils.RobotClass;
+import utils.StringUtils;
 
 public class MainTest extends BaseTest {
+
     @Test
     public static void createProfileAndCheckIt() throws InterruptedException {
         HomePage homePage = new HomePage();
