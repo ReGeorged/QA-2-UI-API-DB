@@ -18,4 +18,23 @@ public class StringUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean findRepeater(String string) {
+        String s = string;
+        int distinct = 0;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = 0; j < s.length(); j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    distinct++;
+                }
+                if (distinct >= 2) {
+                    return true;
+                }
+            }
+            String d = String.valueOf(s.charAt(i)).trim();
+            s = s.replaceAll(d, "");
+            distinct = 0;
+        }
+        return false;
+    }
 }
