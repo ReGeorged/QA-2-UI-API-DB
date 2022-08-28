@@ -3,9 +3,7 @@ package utils;
 import java.util.Random;
 
 public class IntUtils {
-    public static int randNumberFrom1To10() {
-        int min=1;
-        int max=10;
+    public static int randNumberInRange(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min) + min;
     }
