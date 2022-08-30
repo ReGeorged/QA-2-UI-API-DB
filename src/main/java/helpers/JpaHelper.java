@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import org.testng.Assert;
 import pojo.Test;
 import utils.StringUtils;
 
@@ -19,37 +18,43 @@ public class JpaHelper {
         return em;
     }
 
-    private static void createQuery(String setQuery) {
+    private static int createQuery(String setQuery) {
         EntityManager em = returnEM();
         em.getTransaction().begin();
         Query query = em.createNativeQuery(setQuery);
-        query.executeUpdate();
+        int affectedRows = query.executeUpdate();
         em.getTransaction().commit();
         em.close();
+        return affectedRows;
     }
 
-
-    //TODO how to make this more generic?
-    public static void createNewTest(String name, String method_name, int project_id, int session_id, String env) {
+    public static boolean createNewTest(String name, String method_name, int project_id, int session_id, String env) {
+        int listSize = getAllDataFromTable(Test.class).size();
+        boolean isCreated = false;
         Test test = new Test();
         test.setName(name);
+        System.out.println(test.getId());
         test.setMethod_name(method_name);
         test.setProject_id(project_id);
         test.setSession_id(session_id);
         test.setEnv(env);
-
         EntityManager em = returnEM();
         em.getTransaction().begin();
         em.persist(test);
         em.getTransaction().commit();
+        int newSize = listSize + 1;
+        if (newSize == getAllDataFromTable(Test.class).size()) {
+            isCreated = true;
+        }
         em.close();
+        return isCreated;
     }
 
     public static <T> T readRowInTableById(Class<T> table, int id) {
         return returnEM().find(table, id);
     }
 
-    public static void updateQuery(String tableName, String gridName, String newValue, int id) {
+    public static int updateQuery(String tableName, String gridName, String newValue, int id) {
         StringBuilder sbSet = new StringBuilder("UPDATE ");
         sbSet.append(tableName);
         sbSet.append(" set ");
@@ -57,7 +62,8 @@ public class JpaHelper {
         sbSet.append(" =");
         sbSet.append("'" + newValue + "'");
         sbSet.append("WHERE ID =" + id);
-        createQuery(sbSet.toString());
+        int affectedRows = createQuery(sbSet.toString());
+        return affectedRows;
     }
 
     public static void deleteFromTableById(String tableName, int id) {
@@ -89,21 +95,24 @@ public class JpaHelper {
         return doubleIdList;
     }
 
-
-    public static void updateDoubleIds(int howMany, Class entity) {
+    public static int updateDoubleIds(int howMany, Class entity) {
         ArrayList<? extends Test> doubleIdList = returnDoubleIdList(howMany, entity);
+        int affectedRows = 0;
         for (int i = 0; i < doubleIdList.size(); i++) {
-            updateQuery(entity.getSimpleName(), "name", "randomName" + i, doubleIdList.get(i).getId());
+            affectedRows += updateQuery(entity.getSimpleName(), "name", "randomName" + i, doubleIdList.get(i).getId());
         }
+        return affectedRows;
     }
 
-    public static void deleteDoubleIds(int howMany, Class table) {
+    public static int deleteDoubleIds(int howMany, Class table) {
         ArrayList<? extends Test> doubleIdList = returnDoubleIdList(howMany, table);
+        int count = 0;
         for (int i = 0; i < doubleIdList.size(); i++) {
             deleteFromTableById(table.getSimpleName(), doubleIdList.get(i).getId());
-            // TODO figure out if its okay to leave this here
-            Assert.assertNull(readRowInTableById(Test.class, i));
+            if (readRowInTableById(table, i) == null) {
+                count += 1;
+            }
         }
+        return count;
     }
-
 }

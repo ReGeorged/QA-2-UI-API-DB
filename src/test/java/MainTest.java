@@ -14,18 +14,20 @@ import utils.StringUtils;
 public class MainTest extends BaseTest {
 
     @AfterMethod
-    public void reportIt(ITestResult result) {
-        JpaHelper.createNewTest(result.getName(), String.valueOf(result.getMethod()), IntUtils.randNumberInRange(1, 3), IntUtils.randNumberInRange(1, 3), StringUtils.getHostNameAsString());
+    public void saveTestResultsToDB(ITestResult result) {
+        Assert.assertTrue(JpaHelper.createNewTest(result.getName(), String.valueOf(result.getMethod()), IntUtils.randNumberInRange(1, 3), IntUtils.randNumberInRange(1, 3), StringUtils.getHostNameAsString()));
+    }
+
+    @AfterSuite()
+    public void a1updateDoubles() {
+        int howMany = 2;
+        Assert.assertEquals(JpaHelper.updateDoubleIds(howMany, pojo.Test.class), howMany);
     }
 
     @AfterSuite
-    public void updateDoubles() {
-        JpaHelper.updateDoubleIds(10, pojo.Test.class);
-    }
-
-    @AfterSuite
-    public void deleteDoubles() {
-        JpaHelper.deleteDoubleIds(10, pojo.Test.class);
+    public void a2deleteDoubles() {
+        int howMany = 2;
+        Assert.assertEquals(JpaHelper.deleteDoubleIds(howMany, pojo.Test.class), howMany);
     }
 
 
