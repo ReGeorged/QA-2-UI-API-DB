@@ -1,4 +1,4 @@
-import helpers.JpaHelper;
+import helpers.DBHelper;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -15,19 +15,19 @@ public class MainTest extends BaseTest {
 
     @AfterMethod
     public void saveTestResultsToDB(ITestResult result) {
-        Assert.assertTrue(JpaHelper.createNewTest(result.getName(), String.valueOf(result.getMethod()), IntUtils.randNumberInRange(1, 3), IntUtils.randNumberInRange(1, 3), StringUtils.getHostNameAsString()));
+        Assert.assertTrue(DBHelper.createNewTest(result.getName(), String.valueOf(result.getMethod()), IntUtils.randNumberInRange(1, 3), IntUtils.randNumberInRange(1, 3), StringUtils.getHostNameAsString()));
     }
 
     @AfterSuite()
     public void a1updateDoubles() {
         int howMany = 2;
-        Assert.assertEquals(JpaHelper.updateDoubleIds(howMany, pojo.Test.class), howMany);
+        Assert.assertEquals(DBHelper.updateDoubleIds(howMany, pojo.Test.class), howMany);
     }
 
     @AfterSuite
     public void a2deleteDoubles() {
         int howMany = 2;
-        Assert.assertEquals(JpaHelper.deleteDoubleIds(howMany, pojo.Test.class), howMany);
+        Assert.assertEquals(DBHelper.deleteDoubleIds(howMany, pojo.Test.class), howMany);
     }
 
 

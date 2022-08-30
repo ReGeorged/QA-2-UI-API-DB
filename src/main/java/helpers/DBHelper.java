@@ -10,7 +10,7 @@ import utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JpaHelper {
+public class DBHelper {
 
     private static EntityManager returnEM() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ur");
