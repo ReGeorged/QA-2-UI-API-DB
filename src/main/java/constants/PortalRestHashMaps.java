@@ -2,7 +2,7 @@ package constants;
 
 import java.util.HashMap;
 
-public class RestHashMaps {
+public class PortalRestHashMaps {
 
     public static HashMap authForToken() {
         HashMap<String, String> authParams = new HashMap();
