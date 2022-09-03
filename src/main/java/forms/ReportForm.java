@@ -25,4 +25,8 @@ public class ReportForm extends Form {
         loadingElement.state().waitForNotDisplayed();
         return testsList.size();
     }
+
+    public String getStartDate(){
+       return testsList.get(0).getText();
+    }
 }

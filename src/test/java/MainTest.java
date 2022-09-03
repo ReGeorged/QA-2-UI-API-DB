@@ -27,6 +27,7 @@ public class MainTest {
         Assert.assertEquals(reportForm.getReportName(), "Nexage", "Incorrect report form is opened");
         ReportForm notLazyReportForm = new ReportForm();
         System.out.println(notLazyReportForm.getTestListSize());
+        System.out.println(notLazyReportForm.getStartDate());
     }
 
     @Test
