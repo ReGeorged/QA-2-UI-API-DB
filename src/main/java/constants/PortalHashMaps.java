@@ -2,9 +2,9 @@ package constants;
 
 import java.util.HashMap;
 
-public class PortalRestHashMaps {
+public class PortalHashMaps {
 
-    public static HashMap authForToken() {
+    public static HashMap auth() {
         HashMap<String, String> authParams = new HashMap();
         authParams.put("Username", ConfigurationData.Username.getData());
         authParams.put("Password", ConfigurationData.Pword.getData());
@@ -16,5 +16,11 @@ public class PortalRestHashMaps {
         variantHashMap.put("variant", ConfigurationData.Variant.getData());
 
         return variantHashMap;
+    }
+
+    public static HashMap setProjectId() {
+        HashMap<String, String> authParams = new HashMap();
+        authParams.put("projectId", ConfigurationData.ProjectId.getData());
+        return authParams;
     }
 }

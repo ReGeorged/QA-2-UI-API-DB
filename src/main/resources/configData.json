@@ -1,6 +1,7 @@
 {
-  "url": "http://localhost:8080/web",
+  "url": "localhost:8080/web",
   "username": "login",
   "password": "password",
-  "variant": 2
+  "variant": 2,
+  "projectId": 1
 }
