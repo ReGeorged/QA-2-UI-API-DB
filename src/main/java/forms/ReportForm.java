@@ -13,6 +13,7 @@ public class ReportForm extends Form {
     private ILabel reportName = getElementFactory().getLabel(By.xpath("//ol[@class='breadcrumb']//li[not(a)]"),"from name label");
     private List<ILabel> testsList =getElementFactory().findElements(By.xpath("//table[@id='allTests']//tbody//tr[(td)]"),"tests list", ElementType.LABEL);
    private ILabel loadingElement = getElementFactory().getLabel(By.xpath("//div[@class='messi-content']"),"loading window");
+    private List<ILabel> startTimeList = getElementFactory().findElements(By.xpath("//table[@id='allTests']//tbody//tr[(td)]//td[4]"),"test start time list",ElementType.LABEL);
 
    public ReportForm() {
         super(By.xpath("//div[@id='pie']"), "report form");
@@ -26,7 +27,7 @@ public class ReportForm extends Form {
         return testsList.size();
     }
 
-    public String getStartDate(){
-       return testsList.get(0).getText();
+    public String getStartDateByIndex(int index){
+       return startTimeList.get(index).getText();
     }
 }
