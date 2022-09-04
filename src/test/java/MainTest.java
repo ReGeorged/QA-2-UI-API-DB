@@ -3,6 +3,7 @@ import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.elements.actions.MouseActions;
 import com.google.common.collect.Ordering;
 import forms.AddProjectFrom;
+import forms.AddTestForm;
 import forms.HomePage;
 import forms.ReportForm;
 import helpers.PortalHelper;
@@ -36,24 +37,24 @@ public class MainTest extends BaseTest {
         ReportForm notLazyReportForm = new ReportForm();
 
         List webStartDateList = new ArrayList();
-        for(int i=0;i<notLazyReportForm.getTestListSize();i++){
+        for (int i = 0; i < notLazyReportForm.getTestListSize(); i++) {
             webStartDateList.add(StringUtils.dateStringToMillis(notLazyReportForm.getStartDateByIndex(i)));
         }
-        Assert.assertTrue(Ordering.natural().reverse().isOrdered(webStartDateList),"Start date list is not in reverse order");
+        Assert.assertTrue(Ordering.natural().reverse().isOrdered(webStartDateList), "Start date list is not in reverse order");
 
-        List<TestPojo> actualList =PortalHelper.getTestPojoList();
+        List<TestPojo> actualList = PortalHelper.getTestPojoList();
         System.out.println(actualList.size());
         List apiStartDateList = new ArrayList<>();
-        for (int i=0;i<actualList.size();i++){
-            if(i< notLazyReportForm.getTestListSize()){
+        for (int i = 0; i < actualList.size(); i++) {
+            if (i < notLazyReportForm.getTestListSize()) {
                 apiStartDateList.add(StringUtils.dateStringToMillis(actualList.get(i).getStartTime()));
             }
         }
 
-        try{
-            Assert.assertEquals(webStartDateList,apiStartDateList,"Web start date and api start dates do not match(in millis)");
+        try {
+            Assert.assertEquals(webStartDateList, apiStartDateList, "Web start date and api start dates do not match(in millis)");
 
-        }catch (AssertionError e){
+        } catch (AssertionError e) {
             e.printStackTrace();
         }
 
@@ -68,26 +69,72 @@ public class MainTest extends BaseTest {
     @Test
     public void testapi() {
 
-        List<TestPojo> actualList =PortalHelper.getTestPojoList();
-        System.out.println(actualList.size());
-        ArrayList<String> newList = new ArrayList<>();
-        for (int i=0;i<actualList.size();i++){
-            newList.add(actualList.get(i).getStartTime());
-        }
-        System.out.println(newList);
+//        List<TestPojo> actualList =PortalHelper.getTestPojoList();
+//        System.out.println(actualList.size());
+//        ArrayList<String> newList = new ArrayList<>();
+//        for (int i=0;i<actualList.size();i++){
+//            newList.add(actualList.get(i).getStartTime());
+//        }
+//        System.out.println(newList);
+
+        List<TestPojo> actualList = PortalHelper.getTestPojoList();
+        System.out.println(actualList.get(0).getStartTime());
+        System.out.println(actualList.get(0).getName());
+
+        System.out.println(actualList.get(0).getDuration());
+
+        System.out.println(actualList.get(0).getStatus());
+
+        System.out.println(actualList.get(0).getEndTime());
+
+
+        System.out.println(actualList.get(0).getStartTime());
+
 
     }
 
     @Test
-    public void testAddition(){
+    public void testAddition() {
         HomePage homePage = new HomePage();
         homePage.clickAddBtn();
         AddProjectFrom addProjectFrom = new AddProjectFrom();
-        addProjectFrom.addProject("sdadadsassdssdssdassssdsa");
+        Assert.assertTrue(addProjectFrom.isDisplayed());
+        String projectName = "bzsasdadassafadsddsazsdas";
+        addProjectFrom.addProject(projectName);
         addProjectFrom.clickSaveProjectBtn();
         Assert.assertTrue(addProjectFrom.isProjectSaved());
-        String confirmationMessage = AqualityServices.getBrowser().getDriver().getWindowHandle();
-        AqualityServices.getBrowser().getDriver().executeScript("window","close");
         homePage.moveMouseAndClick();
+
+        Assert.assertFalse(addProjectFrom.isDisplayed());
+        AqualityServices.getBrowser().getDriver().navigate().refresh();
+
+        List<String> projectsList = homePage.getProjectsNameList();
+        Assert.assertTrue(projectsList.contains(projectName));
+        int index = projectsList.indexOf(projectName);
+
+        homePage.clickOnProjectViaIndex(index);
+        ReportForm reportForm = new ReportForm();
+        reportForm.clickOnAddBtn();
+
+        PortalHelper.fillWebFormFromApiViaIndex(3);
+
+
+    }
+
+    @Test
+    public void testTestAddition() {
+        HomePage homePage = new HomePage();
+        String projectName = "asda";
+
+        List<String> projectsList = homePage.getProjectsNameList();
+        Assert.assertTrue(projectsList.contains(projectName));
+        int index = projectsList.indexOf(projectName);
+
+        homePage.clickOnProjectViaIndex(index);
+        ReportForm reportForm = new ReportForm();
+        reportForm.clickOnAddBtn();
+
+        PortalHelper.fillWebFormFromApiViaIndex(3);
+
     }
 }

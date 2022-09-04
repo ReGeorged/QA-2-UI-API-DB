@@ -13,7 +13,7 @@ public class AddProjectFrom extends Form {
     private ILabel successMessage = getElementFactory().getLabel(By.xpath("//div[contains(@class,'alert-success')]"),"Project successfully saved message");
 
     public AddProjectFrom() {
-        super(By.xpath("//div[@class='modal-content']"), "Add project Form");
+        super(By.xpath("//div[contains(@id,'addProject')and@aria-hidden='false']"), "Add project Form");
     }
 
     public void addProject(String whatName){
@@ -24,5 +24,12 @@ public class AddProjectFrom extends Form {
     }
     public boolean isProjectSaved(){
         return successMessage.state().isDisplayed();
+    }
+
+    //TODO leave this one or default isOpen()
+    public boolean isFormOpen(){
+        saveProjectBtn.state().waitForNotDisplayed();
+        return saveProjectBtn.state().isDisplayed();
+
     }
 }

@@ -14,7 +14,7 @@ public class ReportForm extends Form {
     private List<ILabel> testsList =getElementFactory().findElements(By.xpath("//table[@id='allTests']//tbody//tr[(td)]"),"tests list", ElementType.LABEL);
    private ILabel loadingElement = getElementFactory().getLabel(By.xpath("//div[@class='messi-content']"),"loading window");
     private List<ILabel> startTimeList = getElementFactory().findElements(By.xpath("//table[@id='allTests']//tbody//tr[(td)]//td[4]"),"test start time list",ElementType.LABEL);
-
+    private IButton addBtn = getElementFactory().getButton(By.xpath("//button[contains(@class,'pull-right')]"),"Add test button");
    public ReportForm() {
         super(By.xpath("//div[@id='pie']"), "report form");
     }
@@ -29,5 +29,8 @@ public class ReportForm extends Form {
 
     public String getStartDateByIndex(int index){
        return startTimeList.get(index).getText();
+    }
+    public void clickOnAddBtn(){
+       addBtn.click();
     }
 }
