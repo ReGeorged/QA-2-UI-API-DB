@@ -34,9 +34,5 @@ public class RestHelper {
         return res;
     }
 
-    public static <T> List<T> pojoCallPostAsList(String endpoint, int statusCode, Class<T> whatClass) {
-        Response response = RestHelper.getAllJsonResponses(PortalHashMaps.auth(), PortalHashMaps.setProjectId(),endpoint, statusCode);
-        List<T> returnedAnyList = response.jsonPath().getList(".", whatClass);
-        return returnedAnyList;
-    }
+
 }

@@ -2,10 +2,7 @@ import aquality.selenium.browser.AlertActions;
 import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.elements.actions.MouseActions;
 import com.google.common.collect.Ordering;
-import forms.AddProjectFrom;
-import forms.AddTestForm;
-import forms.HomePage;
-import forms.ReportForm;
+import forms.*;
 import helpers.PortalHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -59,7 +56,7 @@ public class MainTest extends BaseTest {
         }
 
         AqualityServices.getBrowser().getDriver().navigate().back();
-        Assert.assertTrue(homePage.isDisplayed());
+        Assert.assertTrue(homePage.isDisplayed(),"Home page is not open");
         homePage.clickAddBtn();
         AddProjectFrom addProjectFrom = new AddProjectFrom();
         addProjectFrom.addProject("djakdsada");
@@ -102,14 +99,15 @@ public class MainTest extends BaseTest {
         String projectName = "bzsasdadassafadsddsazsdas";
         addProjectFrom.addProject(projectName);
         addProjectFrom.clickSaveProjectBtn();
-        Assert.assertTrue(addProjectFrom.isProjectSaved());
-        homePage.moveMouseAndClick();
+        Assert.assertTrue(addProjectFrom.isProjectSaved(),"Project was not saved");
+        TopForm topForm = new TopForm();
+        topForm.moveMouseAndClick();
 
-        Assert.assertFalse(addProjectFrom.isDisplayed());
+        Assert.assertFalse(addProjectFrom.isDisplayed(),"Create new project form did not disappear");
         AqualityServices.getBrowser().getDriver().navigate().refresh();
 
         List<String> projectsList = homePage.getProjectsNameList();
-        Assert.assertTrue(projectsList.contains(projectName));
+        Assert.assertTrue(projectsList.contains(projectName),"Newly created project is not in all projects list");
         int index = projectsList.indexOf(projectName);
 
         homePage.clickOnProjectViaIndex(index);
@@ -127,14 +125,25 @@ public class MainTest extends BaseTest {
         String projectName = "asda";
 
         List<String> projectsList = homePage.getProjectsNameList();
-        Assert.assertTrue(projectsList.contains(projectName));
+        Assert.assertTrue(projectsList.contains(projectName),"This Project does not exist");
         int index = projectsList.indexOf(projectName);
 
         homePage.clickOnProjectViaIndex(index);
         ReportForm reportForm = new ReportForm();
+        String oldCountString = reportForm.getAllRunningTestsAsString();
+        System.out.println(oldCountString);
         reportForm.clickOnAddBtn();
 
         PortalHelper.fillWebFormFromApiViaIndex(3);
+        AddTestForm addTestForm = new AddTestForm();
+        Assert.assertTrue(addTestForm.isTestSaved(),"Test was not saved");
+        TopForm topForm = new TopForm();
+        topForm.moveMouseAndClick();
+
+        //TODO need better wait
+        reportForm.waitForRefresh();
+
+        Assert.assertNotEquals(reportForm.getAllRunningTestsAsString(),oldCountString,"New test was not added - number of tests didnt change");
 
     }
 }

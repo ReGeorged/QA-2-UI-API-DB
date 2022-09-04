@@ -1,11 +1,12 @@
 package forms;
 
-import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.IComboBox;
+import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
 import org.openqa.selenium.By;
+import utils.BrowserUtils;
 
 public class AddTestForm extends Form {
     private ITextBox testName = getElementFactory().getTextBox(By.xpath("//input[@id='testName']"),"Test name input field");
@@ -18,7 +19,7 @@ public class AddTestForm extends Form {
     private IButton chooseFileBtn = getElementFactory().getButton(By.xpath("//input[@id='attachment']"),"Choose file button");
     private IButton saveProjectBtn = getElementFactory().getButton(By.xpath("//button[contains(@class,'btn-primary') and @type='button']"),"Save project button");
     private IComboBox testStatusDropDown = getElementFactory().getComboBox(By.xpath("//select[@id='testStatus']"),"Test status select box");
-
+    private ILabel successMessage = getElementFactory().getLabel(By.xpath("//div[contains(@class,'alert-success') and contains(@style,'block')]"),"Success Message Box");
     public AddTestForm() {
         super(By.xpath("//div[contains(@id,'addTest')and @aria-hidden='false']"), "Add test form");
     }
@@ -36,9 +37,11 @@ public class AddTestForm extends Form {
         browser.clearAndType(whatBrowser);
         logTextArea.clearAndType(log);
         testStatusDropDown.selectByContainingText(status);
-        chooseFileBtn.sendKeys(String.valueOf(AqualityServices.getBrowser().getScreenshot()));
-        System.out.println("screenshot length is "+ AqualityServices.getBrowser().getScreenshot().length);
-
-
+        chooseFileBtn.sendKeys(BrowserUtils.takeScreenAndGetPath());
+        saveProjectBtn.click();
+    }
+    public boolean isTestSaved(){
+        successMessage.state().waitForDisplayed();
+        return successMessage.state().isDisplayed();
     }
 }

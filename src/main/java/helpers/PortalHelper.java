@@ -17,7 +17,7 @@ public class PortalHelper {
 
 
     public static List<TestPojo> getTestPojoList() {
-        List<TestPojo> responseList = RestHelper.pojoCallPostAsList(EndPoints.getJsonResponse, 200, TestPojo.class);
+        List<TestPojo> responseList = PojoHelpepr.pojoCallPostAsList(EndPoints.getJsonResponse, 200, TestPojo.class);
         return responseList;
     }
 

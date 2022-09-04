@@ -17,7 +17,7 @@ public class HomePage extends Form {
     private IButton nexageBtn = getElementFactory().getButton(By.xpath("//a[@class='list-group-item'][contains(text(),'Nexage')]"), "Nexage in projects list");
     private IButton addProjectBtn = getElementFactory().getButton(By.xpath("//button[contains(@class,'btn-xs')]"), "add button");
     private List<ILabel> projectsList = getElementFactory().findElements(By.xpath("//div[@class='list-group']//a"), "Projects list", ElementType.LABEL);
-    private IButton homeBtn = getElementFactory().getButton(By.xpath("//li//a"), "Home Button");
+
 
     public HomePage() {
         super(By.xpath("//div[@class='list-group']"), "home page");
@@ -45,11 +45,7 @@ public class HomePage extends Form {
         addProjectBtn.click();
     }
 
-    public void moveMouseAndClick() {
-        MouseActions mouseActions = new MouseActions(homeBtn, ElementType.BUTTON.name());
-        mouseActions.moveMouseToElement();
-        mouseActions.click();
-    }
+
 
     public List<String> getProjectsNameList() {
         List<String> projectsNameList = new ArrayList<>();
