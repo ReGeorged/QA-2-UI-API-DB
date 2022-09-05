@@ -1,13 +1,12 @@
-import aquality.selenium.browser.AlertActions;
 import aquality.selenium.browser.AqualityServices;
-import aquality.selenium.elements.actions.MouseActions;
 import com.google.common.collect.Ordering;
 import forms.*;
 import helpers.PortalHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import pojo.TestPojo;
+import utils.BrowserUtils;
+import utils.FileUtils;
 import utils.StringUtils;
 
 import java.util.ArrayList;
@@ -122,7 +121,7 @@ public class MainTest extends BaseTest {
     @Test
     public void testTestAddition() {
         HomePage homePage = new HomePage();
-        String projectName = "asda";
+        String projectName = "bz";
 
         List<String> projectsList = homePage.getProjectsNameList();
         Assert.assertTrue(projectsList.contains(projectName),"This Project does not exist");
@@ -132,18 +131,40 @@ public class MainTest extends BaseTest {
         ReportForm reportForm = new ReportForm();
         String oldCountString = reportForm.getAllRunningTestsAsString();
         System.out.println(oldCountString);
-        reportForm.clickOnAddBtn();
+        //reportForm.clickOnAddBtn();
+        String log = FileUtils.logToString();
+        //PortalHelper.fillWebFormFromApiViaIndex(3);
+        PortalHelper.createNewTestWithLogAndAttachment(
+                "123220119191",
+                projectName,
+                "9",
+                "9",
+                "randomEnv",
+                log, BrowserUtils.takeScreenAs64String()
+        );
 
-        PortalHelper.fillWebFormFromApiViaIndex(3);
-        AddTestForm addTestForm = new AddTestForm();
-        Assert.assertTrue(addTestForm.isTestSaved(),"Test was not saved");
-        TopForm topForm = new TopForm();
-        topForm.moveMouseAndClick();
+        //AddTestForm addTestForm = new AddTestForm();
+        //Assert.assertTrue(addTestForm.isTestSaved(),"Test was not saved");
+        //TopForm topForm = new TopForm();
+        //topForm.moveMouseAndClick();
 
-        //TODO need better wait
-        reportForm.waitForRefresh();
+        reportForm.waitForDisappear();
+        reportForm.waitToAppear();
 
         Assert.assertNotEquals(reportForm.getAllRunningTestsAsString(),oldCountString,"New test was not added - number of tests didnt change");
+
+    }
+
+    @Test
+    public void createNewTestWithApi(){
+        PortalHelper.createNewTestWithLogAndAttachment(
+                "aasdadadsdf",
+                "Zxy",
+                "ZZZZZZ",
+                "randomMethod",
+                "randomEnv",
+                "ASDA", BrowserUtils.takeScreenAs64String()
+        );
 
     }
 }

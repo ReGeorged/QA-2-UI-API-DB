@@ -1,11 +1,9 @@
 package helpers;
 
-import constants.PortalHashMaps;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
@@ -22,7 +20,7 @@ public class RestHelper {
         return res;
     }
 
-    public static Response getAllJsonResponses(HashMap headersHashMap, HashMap paramsHashMap, String endpoint, int statusCode) {
+    public static Response postAndAcceptJson(HashMap headersHashMap, HashMap paramsHashMap, String endpoint, int statusCode) {
         Response res = given()
                 .accept(ContentType.JSON)
                 .headers(headersHashMap)

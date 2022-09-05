@@ -6,7 +6,9 @@ public class EndPoints {
 
 
     public static final String getJsonResponse = "http://localhost:8080/api/test/get/json";
-
+    public static final String createNewTest = "http://localhost:8080/api/test/put";
+    public static final String putLog = "http://localhost:8080/api/test/put/log";
+    public static final String putAttachment = "http://localhost:8080/api/test/put/attachment";
 
 
     public static String getLink(){

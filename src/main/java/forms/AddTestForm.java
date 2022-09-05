@@ -17,18 +17,17 @@ public class AddTestForm extends Form {
     private ITextBox browser = getElementFactory().getTextBox(By.xpath("//input[@id='browser']"),"Browser input field");
     private ITextBox logTextArea = getElementFactory().getTextBox(By.xpath("//textarea[@id='log']"),"Log text area field");
     private IButton chooseFileBtn = getElementFactory().getButton(By.xpath("//input[@id='attachment']"),"Choose file button");
-    private IButton saveProjectBtn = getElementFactory().getButton(By.xpath("//button[contains(@class,'btn-primary') and @type='button']"),"Save project button");
     private IComboBox testStatusDropDown = getElementFactory().getComboBox(By.xpath("//select[@id='testStatus']"),"Test status select box");
+
+    private IButton saveProjectBtn = getElementFactory().getButton(By.xpath("//button[contains(@class,'btn-primary') and @type='button']"),"Save project button");
     private ILabel successMessage = getElementFactory().getLabel(By.xpath("//div[contains(@class,'alert-success') and contains(@style,'block')]"),"Success Message Box");
     public AddTestForm() {
         super(By.xpath("//div[contains(@id,'addTest')and @aria-hidden='false']"), "Add test form");
     }
 
-    public void clickOnSaveProjectBtn(){
-        saveProjectBtn.click();
-    }
 
-    public void fillForm(String name, String method,String start,String end,String env,String whatBrowser,String log,String status){
+    @Deprecated
+    public void fillFormAndSave(String name, String method, String start, String end, String env, String whatBrowser, String log, String status){
         testName.clearAndType(name);
         testMethod.clearAndType(method);
         startTime.clearAndType(start);
@@ -37,7 +36,7 @@ public class AddTestForm extends Form {
         browser.clearAndType(whatBrowser);
         logTextArea.clearAndType(log);
         testStatusDropDown.selectByContainingText(status);
-        chooseFileBtn.sendKeys(BrowserUtils.takeScreenAndGetPath());
+        chooseFileBtn.sendKeys(BrowserUtils.takeScreenAs64String());
         saveProjectBtn.click();
     }
     public boolean isTestSaved(){

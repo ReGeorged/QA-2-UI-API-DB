@@ -42,9 +42,12 @@ public class ReportForm extends Form {
        addBtn.click();
     }
 
-    public void waitForRefresh(){
+    public void waitForDisappear(){
        addBtn.state().waitForNotDisplayed();
-       //addBtn.state().waitForDisplayed();
+    }
+    public void waitToAppear(){
+        addBtn.state().waitForDisplayed();
+
     }
 
     public String getAllRunningTestsAsString(){
