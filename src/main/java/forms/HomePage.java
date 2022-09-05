@@ -15,10 +15,8 @@ public class HomePage extends Form {
     private IButton addProjectBtn = getElementFactory().getButton(By.xpath("//a[contains(@class,'btn-xs')]"), "add button");
     private List<ILabel> projectsList = getElementFactory().findElements(By.xpath("//div[@class='list-group']//a"), "Projects list", ElementType.LABEL);
 
-
     public HomePage() {
         super(By.xpath("//div[@class='list-group']"), "home page");
-
     }
 
     public String getVersion() {
@@ -36,7 +34,6 @@ public class HomePage extends Form {
     public void clickAddBtn() {
         addProjectBtn.click();
     }
-
 
     public List<String> getProjectsNameList() {
         List<String> projectsNameList = new ArrayList<>();

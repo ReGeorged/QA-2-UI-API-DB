@@ -5,26 +5,26 @@ import java.util.HashMap;
 public class PortalHashMaps {
 
     public static HashMap auth() {
-        HashMap<String, String> authParams = new HashMap();
+        HashMap<String, Object> authParams = new HashMap();
         authParams.put("Username", ConfigurationData.USERNAME.getData());
         authParams.put("Password", ConfigurationData.PWORD.getData());
         return authParams;
     }
 
     public static HashMap setParamVariant() {
-        HashMap<String, String> variantHashMap = new HashMap();
+        HashMap<String, Object> variantHashMap = new HashMap();
         variantHashMap.put("variant", ConfigurationData.VARIANT.getData());
         return variantHashMap;
     }
 
     public static HashMap setProjectId() {
-        HashMap<String, String> authParams = new HashMap();
+        HashMap<String, Object> authParams = new HashMap();
         authParams.put("projectId", ConfigurationData.PROJECT_ID.getData());
         return authParams;
     }
 
-    public static HashMap createNewTestParams(String sId, String projectName, String testName, String methodName, String env) {
-        HashMap<String, String> testDetails = new HashMap();
+    public static HashMap createNewTestParams(Object sId, Object projectName, Object testName, Object methodName, Object env) {
+        HashMap<String, Object> testDetails = new HashMap();
         testDetails.put("SID", sId);
         testDetails.put("projectName", projectName);
         testDetails.put("testName", testName);
@@ -33,14 +33,14 @@ public class PortalHashMaps {
         return testDetails;
     }
 
-    public static HashMap putLogParams(String testId, String content) {
-        HashMap<String, String> logs = new HashMap();
+    public static HashMap putLogParams(Object testId, Object content) {
+        HashMap<String, Object> logs = new HashMap();
         logs.put("testId", testId);
         logs.put("content", content);
         return logs;
     }
 
-    public static HashMap putAttachmentParams(String testId, Object content, String contentType) {
+    public static HashMap putAttachmentParams(Object testId, Object content, Object contentType) {
         HashMap<String, Object> attach = new HashMap();
         attach.put("testId", testId);
         attach.put("content", content);

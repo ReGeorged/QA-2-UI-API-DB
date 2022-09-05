@@ -1,5 +1,7 @@
 package utils;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,4 +21,16 @@ public class StringUtils {
         return millis;
     }
 
+    public static String getHostNameAsString() {
+        try {
+            String systemName = InetAddress.getLocalHost().getHostName();
+            return systemName;
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static String getDeclaringMethodName() {
+        String methodName = new Exception().getStackTrace()[1].getMethodName();
+        return methodName;
+    }
 }

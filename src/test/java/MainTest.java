@@ -18,7 +18,7 @@ public class MainTest extends BaseTest {
 
     private static String projectName = ConfigurationData.NEW_PROJECT_NAME.getData();
 
-    @Test(enabled = false)
+    @Test
     public static void testUnionReporting() {
         List<TestPojo> apiTestList = PortalHelper.getTestPojoList();
 
@@ -56,6 +56,7 @@ public class MainTest extends BaseTest {
         Assert.assertTrue(addProjectFrom.isDisplayed(), "Add new project form is not open");
         addProjectFrom.createNewProjectAndSave(projectName);
         Assert.assertTrue(addProjectFrom.isProjectSaved(), "New project was not saved");
+        AqualityServices.getBrowser().getDriver().close();
         BrowserUtils.switchWindowsByIndex(0);
         Assert.assertTrue(homePage.isDisplayed(), "Home page is not open");
 
@@ -65,15 +66,15 @@ public class MainTest extends BaseTest {
 
         int index = projectsList.indexOf(projectName);
         homePage.clickOnProjectViaIndex(index);
-        Assert.assertTrue(reportForm.isDisplayed());
+        Assert.assertTrue(reportForm.isDisplayed(), "Report form is not open");
         String oldCountString = reportForm.getAllRunningTestsAsString();
         String log = FileUtils.logToString();
         PortalHelper.createNewTestWithLogAndScreenshot(
                 String.valueOf(BaseTest.randomSessionId),
                 projectName,
-                "9",
-                "9",
-                "randomEnv",
+                "randTestName",
+                StringUtils.getDeclaringMethodName(),
+                StringUtils.getHostNameAsString(),
                 log,
                 BrowserUtils.takeScreenAs64String(),
                 200

@@ -10,7 +10,7 @@ public enum ConfigurationData {
     PWORD(FileUtils.readFromJson("configData.json", "/password")),
     VARIANT(FileUtils.readFromJson("configData.json", "/variant")),
     PROJECT_ID(FileUtils.readFromJson("configData.json", "/projectId")),
-    NEW_PROJECT_NAME(FileUtils.readFromJson("configData.json","/newProjectName"));
+    NEW_PROJECT_NAME(FileUtils.readFromJson("configData.json", "/newProjectName"));
 
     String data;
 

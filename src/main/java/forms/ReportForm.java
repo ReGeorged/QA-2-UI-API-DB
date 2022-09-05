@@ -9,8 +9,6 @@ import org.openqa.selenium.By;
 import java.util.List;
 
 public class ReportForm extends Form {
-
-
     private ILabel reportName = getElementFactory().getLabel(By.xpath("//ol[@class='breadcrumb']//li[not(a)]"), "from name label");
     private List<ILabel> testsList = getElementFactory().findElements(By.xpath("//table[@id='allTests']//tbody//tr[(td)]"), "tests list", ElementType.LABEL);
     private ILabel loadingElement = getElementFactory().getLabel(By.xpath("//div[@class='messi-content']"), "loading window");
