@@ -6,6 +6,7 @@ import org.openqa.selenium.OutputType;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 
 public class BrowserUtils {
@@ -21,6 +22,12 @@ public class BrowserUtils {
         }
         String encodedString = Base64.getEncoder().encodeToString(fileContent);
         return encodedString;
+
+    }
+
+    public static void switchWindowsByIndex(int index){
+        ArrayList<String> windows = new ArrayList (AqualityServices.getBrowser().getDriver().getWindowHandles());
+        AqualityServices.getBrowser().getDriver().switchTo().window(windows.get(index));
 
     }
 

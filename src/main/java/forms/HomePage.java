@@ -15,7 +15,7 @@ import java.util.List;
 public class HomePage extends Form {
     private ILabel versionIndicator = getElementFactory().getLabel(By.xpath("//p[contains(@class,'footer-text')]//span"), "bottom version indicator");
     private IButton nexageBtn = getElementFactory().getButton(By.xpath("//a[@class='list-group-item'][contains(text(),'Nexage')]"), "Nexage in projects list");
-    private IButton addProjectBtn = getElementFactory().getButton(By.xpath("//button[contains(@class,'btn-xs')]"), "add button");
+    private IButton addProjectBtn = getElementFactory().getButton(By.xpath("//a[contains(@class,'btn-xs')]"), "add button");
     private List<ILabel> projectsList = getElementFactory().findElements(By.xpath("//div[@class='list-group']//a"), "Projects list", ElementType.LABEL);
 
 

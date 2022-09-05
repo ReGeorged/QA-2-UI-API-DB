@@ -2,10 +2,7 @@ package helpers;
 
 import constants.EndPoints;
 import constants.PortalHashMaps;
-import forms.AddTestForm;
 import pojo.TestPojo;
-import utils.BrowserUtils;
-import utils.FileUtils;
 
 import java.util.List;
 
@@ -22,13 +19,6 @@ public class PortalHelper {
     public static List<TestPojo> getTestPojoList() {
         List<TestPojo> responseList = PojoHelpepr.pojoCallPostAsList(EndPoints.getJsonResponse, 200, TestPojo.class);
         return responseList;
-    }
-
-    @Deprecated
-    public static void fillWebFormFromApiViaIndex(int index) {
-        TestPojo tstPojo = getTestPojoList().get(index);
-        AddTestForm addTestForm = new AddTestForm();
-        addTestForm.fillFormAndSave(tstPojo.getName(), tstPojo.getMethod(), tstPojo.getStartTime(), tstPojo.getEndTime(), "randomEnv", "randBrowser", FileUtils.logToString(), tstPojo.getStatus());
     }
 
 
