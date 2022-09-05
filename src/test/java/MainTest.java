@@ -1,5 +1,6 @@
 import aquality.selenium.browser.AqualityServices;
 import com.google.common.collect.Ordering;
+import constants.ConfigurationData;
 import forms.*;
 import helpers.PortalHelper;
 import org.testng.Assert;
@@ -9,24 +10,25 @@ import utils.BrowserUtils;
 import utils.FileUtils;
 import utils.StringUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
 
 public class MainTest extends BaseTest {
 
-    @Test
-    public static void asda(){
+    private static String projectName = ConfigurationData.NEW_PROJECT_NAME.getData();
+
+    @Test(enabled = false)
+    public static void testUnionReporting() {
+        List<TestPojo> apiTestList = PortalHelper.getTestPojoList();
+
 
         HomePage homePage = new HomePage();
         Assert.assertTrue(homePage.isDisplayed(), "Home page not open");
-        homePage.setCookie("token", PortalHelper.getCookie());
+        BrowserUtils.setCookie("token", PortalHelper.getCookie());
         AqualityServices.getBrowser().getDriver().navigate().refresh();
         String ver = homePage.getVersion();
-        Assert.assertEquals(ver, "Version: 2", "Versions dont match");
+        Assert.assertEquals(ver, "Version: 2", "Versions do not match");
         homePage.clickOnNexage();
 
         ReportForm reportForm = new ReportForm();
@@ -38,118 +40,47 @@ public class MainTest extends BaseTest {
         for (int i = 0; i < notLazyReportForm.getTestListSize(); i++) {
             webStartDateList.add(StringUtils.dateStringToMillis(notLazyReportForm.getStartDateByIndex(i)));
         }
-        Assert.assertTrue(Ordering.natural().reverse().isOrdered(webStartDateList), "Start date list is not in reverse order");
-
-        List<TestPojo> actualList = PortalHelper.getTestPojoList();
-        System.out.println(actualList.size());
         List apiStartDateList = new ArrayList<>();
-        for (int i = 0; i < actualList.size(); i++) {
-                apiStartDateList.add(StringUtils.dateStringToMillis(actualList.get(i).getStartTime()));
-
+        for (int i = 0; i < apiTestList.size(); i++) {
+            apiStartDateList.add(StringUtils.dateStringToMillis(apiTestList.get(i).getStartTime()));
         }
-
-//        try {
-//            Assert.assertEquals(webStartDateList, apiStartDateList, "Web start date and api start dates do not match(in millis)");
-//
-//        } catch (AssertionError e) {
-//            e.printStackTrace();
-//        }
-        Assert.assertTrue(apiStartDateList.containsAll(webStartDateList),"Api tests list and web tests list dont match");
+        Assert.assertTrue(Ordering.natural().reverse().isOrdered(webStartDateList), "Start date list is not in descending order");
+        Assert.assertTrue(apiStartDateList.containsAll(webStartDateList), "Api tests list and web tests list do not match");
 
         AqualityServices.getBrowser().getDriver().navigate().back();
-        Assert.assertTrue(homePage.isDisplayed(),"Home page is not open");
+        Assert.assertTrue(homePage.isDisplayed(), "Home page is not open");
+
         homePage.clickAddBtn();
-
-        AddProject2From addProject2From = new AddProject2From();
-
-//        //List windowHadles = (List) AqualityServices.getBrowser().getDriver().getWindowHandles();
-//        AqualityServices.getBrowser().getDriver().switchTo().window(addProject2From.get);
+        AddProjectFrom addProjectFrom = new AddProjectFrom();
         BrowserUtils.switchWindowsByIndex(1);
-        Assert.assertTrue(addProject2From.isDisplayed());
-        addProject2From.createNewProjectAndSave("12SoTricky");
-        Assert.assertTrue(addProject2From.isProjectSaved());
+        Assert.assertTrue(addProjectFrom.isDisplayed(), "Add new project form is not open");
+        addProjectFrom.createNewProjectAndSave(projectName);
+        Assert.assertTrue(addProjectFrom.isProjectSaved(), "New project was not saved");
         BrowserUtils.switchWindowsByIndex(0);
-        /*  OLD
-        AddProjectFrom addProjectFrom = new AddProjectFrom();
-        addProjectFrom.addProject("djakdsada");
-        addProjectFrom.clickSaveProjectBtn();
-        */
+        Assert.assertTrue(homePage.isDisplayed(), "Home page is not open");
 
-    }
-
-    @Test
-    public void testapi() {
-
-//        List<TestPojo> actualList =PortalHelper.getTestPojoList();
-//        System.out.println(actualList.size());
-//        ArrayList<String> newList = new ArrayList<>();
-//        for (int i=0;i<actualList.size();i++){
-//            newList.add(actualList.get(i).getStartTime());
-//        }
-//        System.out.println(newList);
-
-        List<TestPojo> actualList = PortalHelper.getTestPojoList();
-        System.out.println(actualList.get(0).getStartTime());
-        System.out.println(actualList.get(0).getName());
-
-        System.out.println(actualList.get(0).getDuration());
-
-        System.out.println(actualList.get(0).getStatus());
-
-        System.out.println(actualList.get(0).getEndTime());
-
-
-        System.out.println(actualList.get(0).getStartTime());
-
-
-    }
-
-    @Test
-    public void testAddition() {
-        HomePage homePage = new HomePage();
-        homePage.clickAddBtn();
-        AddProjectFrom addProjectFrom = new AddProjectFrom();
-        Assert.assertTrue(addProjectFrom.isDisplayed());
-        String projectName = "bzsasdadassafadsddsazsdas";
-        addProjectFrom.addProject(projectName);
-        addProjectFrom.clickSaveProjectBtn();
-        Assert.assertTrue(addProjectFrom.isProjectSaved(),"Project was not saved");
-        TopForm topForm = new TopForm();
-        topForm.moveMouseAndClick();
-        Assert.assertFalse(addProjectFrom.isDisplayed(),"Create new project form did not disappear");
         AqualityServices.getBrowser().getDriver().navigate().refresh();
         List<String> projectsList = homePage.getProjectsNameList();
-        Assert.assertTrue(projectsList.contains(projectName),"Newly created project is not in all projects list");
-//        int index = projectsList.indexOf(projectName);
-//        homePage.clickOnProjectViaIndex(index);
+        Assert.assertTrue(projectsList.contains(projectName), "Newly created project is not in all projects list");
 
-
-
-    }
-
-    @Test
-    public void testTestAddition() {
-        HomePage homePage = new HomePage();
-        String projectName = "bz";
-        List<String> projectsList = homePage.getProjectsNameList();
-        Assert.assertTrue(projectsList.contains(projectName),"This Project does not exist");
         int index = projectsList.indexOf(projectName);
         homePage.clickOnProjectViaIndex(index);
-        ReportForm reportForm = new ReportForm();
+        Assert.assertTrue(reportForm.isDisplayed());
         String oldCountString = reportForm.getAllRunningTestsAsString();
         String log = FileUtils.logToString();
-        PortalHelper.createNewTestWithLogAndAttachment(
-                "123220119191",
+        PortalHelper.createNewTestWithLogAndScreenshot(
+                String.valueOf(BaseTest.randomSessionId),
                 projectName,
                 "9",
                 "9",
                 "randomEnv",
-                log, BrowserUtils.takeScreenAs64String()
+                log,
+                BrowserUtils.takeScreenAs64String(),
+                200
         );
-        reportForm.waitForDisappear();
-        reportForm.waitToAppear();
-        Assert.assertNotEquals(reportForm.getAllRunningTestsAsString(),oldCountString,"New test was not added - number of tests didnt change");
-
+        reportForm.waitForAddBtnToDisappear();
+        reportForm.waitForAddBtnAppear();
+        Assert.assertNotEquals(reportForm.getAllRunningTestsAsString(), oldCountString, "New test was not added - number of tests did not change");
     }
 
 

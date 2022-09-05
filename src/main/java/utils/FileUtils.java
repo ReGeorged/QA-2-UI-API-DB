@@ -13,16 +13,6 @@ public class FileUtils {
         return value;
     }
 
-    public static String getAbsolutePath(String relativePath) {
-        String absolute = null;
-        try {
-            absolute = new File(relativePath).getCanonicalPath();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return absolute;
-    }
-
     public static String logToString() {
         try {
             StringBuilder logString = new StringBuilder();

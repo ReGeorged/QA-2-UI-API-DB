@@ -3,5 +3,6 @@
   "username": "login",
   "password": "password",
   "variant": 2,
-  "projectId": 1
+  "projectId": 1,
+  "newProjectName": "randomSmartName"
 }

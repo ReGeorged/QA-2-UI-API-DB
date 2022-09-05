@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 
 import java.util.List;
 
-public class PojoHelpepr {
+public class PojoHelper {
 
     public static <T> List<T> pojoCallPostAsList(String endpoint, int statusCode, Class<T> whatClass) {
         Response response = RestHelper.postAndAcceptJson(PortalHashMaps.auth(), PortalHashMaps.setProjectId(),endpoint, statusCode);

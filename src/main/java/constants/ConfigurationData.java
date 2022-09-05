@@ -5,17 +5,17 @@ import utils.FileUtils;
 
 @Getter
 public enum ConfigurationData {
-    Url(FileUtils.readFromJson("configData.json", "/url")),
-    Username(FileUtils.readFromJson("configData.json", "/username")),
-    Pword(FileUtils.readFromJson("configData.json", "/password")),
-    Variant(FileUtils.readFromJson("configData.json", "/variant")),
-    ProjectId(FileUtils.readFromJson("configData.json", "/projectId"));
+    URL(FileUtils.readFromJson("configData.json", "/url")),
+    USERNAME(FileUtils.readFromJson("configData.json", "/username")),
+    PWORD(FileUtils.readFromJson("configData.json", "/password")),
+    VARIANT(FileUtils.readFromJson("configData.json", "/variant")),
+    PROJECT_ID(FileUtils.readFromJson("configData.json", "/projectId")),
+    NEW_PROJECT_NAME(FileUtils.readFromJson("configData.json","/newProjectName"));
 
     String data;
 
     ConfigurationData(String data) {
         this.data = data;
-
 
     }
 

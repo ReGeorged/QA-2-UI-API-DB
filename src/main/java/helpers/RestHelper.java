@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 
 public class RestHelper {
 
-    public static Response postWithHeadersAndParams(HashMap headersHashMap,HashMap paramsHashMap, String endPoint, int expectedCode) {
+    public static Response postWithHeadersAndParams(HashMap headersHashMap, HashMap paramsHashMap, String endPoint, int expectedCode) {
         Response res = given()
                 .headers(headersHashMap)
                 .params(paramsHashMap)

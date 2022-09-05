@@ -6,21 +6,20 @@ public class PortalHashMaps {
 
     public static HashMap auth() {
         HashMap<String, String> authParams = new HashMap();
-        authParams.put("Username", ConfigurationData.Username.getData());
-        authParams.put("Password", ConfigurationData.Pword.getData());
+        authParams.put("Username", ConfigurationData.USERNAME.getData());
+        authParams.put("Password", ConfigurationData.PWORD.getData());
         return authParams;
     }
 
     public static HashMap setParamVariant() {
         HashMap<String, String> variantHashMap = new HashMap();
-        variantHashMap.put("variant", ConfigurationData.Variant.getData());
-
+        variantHashMap.put("variant", ConfigurationData.VARIANT.getData());
         return variantHashMap;
     }
 
     public static HashMap setProjectId() {
         HashMap<String, String> authParams = new HashMap();
-        authParams.put("projectId", ConfigurationData.ProjectId.getData());
+        authParams.put("projectId", ConfigurationData.PROJECT_ID.getData());
         return authParams;
     }
 
@@ -34,14 +33,14 @@ public class PortalHashMaps {
         return testDetails;
     }
 
-    public static HashMap putLog(String testId, String content) {
+    public static HashMap putLogParams(String testId, String content) {
         HashMap<String, String> logs = new HashMap();
         logs.put("testId", testId);
         logs.put("content", content);
         return logs;
     }
 
-    public static HashMap putAttachment(String testId, Object content, String contentType) {
+    public static HashMap putAttachmentParams(String testId, Object content, String contentType) {
         HashMap<String, Object> attach = new HashMap();
         attach.put("testId", testId);
         attach.put("content", content);

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 import java.util.Map;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "duration",
@@ -28,7 +29,7 @@ public class TestPojo {
     @SuppressWarnings("unchecked")
     @JsonProperty("$")
     public void unpackTest(Map<String, Object> test) {
-        this.duration = (String)test.get("duration");
+        this.duration = (String) test.get("duration");
         this.method = (String) test.get("method");
         this.startTime = (String) test.get("startTime");
         this.endTime = (String) test.get("endTime");

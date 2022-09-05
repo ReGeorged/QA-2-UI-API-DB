@@ -6,7 +6,6 @@ import pojo.TestPojo;
 
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
 
 public class PortalHelper {
 
@@ -17,32 +16,29 @@ public class PortalHelper {
 
 
     public static List<TestPojo> getTestPojoList() {
-        List<TestPojo> responseList = PojoHelpepr.pojoCallPostAsList(EndPoints.getJsonResponse, 200, TestPojo.class);
+        List<TestPojo> responseList = PojoHelper.pojoCallPostAsList(EndPoints.getJsonResponse, 200, TestPojo.class);
         return responseList;
     }
 
 
-    public static String createNewTestAndGetId(String sId,String projectName,String testName, String methodName, String env ){
-        String id = RestHelper.postWithHeadersAndParams(PortalHashMaps.auth(),PortalHashMaps.createNewTestParams(sId,projectName,testName,methodName,env),EndPoints.createNewTest,200).asString();
+    private static String createNewTestAndGetId(String sId, String projectName, String testName, String methodName, String env, int expectedCode) {
+        String id = RestHelper.postWithHeadersAndParams(PortalHashMaps.auth(), PortalHashMaps.createNewTestParams(sId, projectName, testName, methodName, env), EndPoints.createNewTest, expectedCode).asString();
         return id;
     }
 
-    public static void putLog(String id,String content){
-        RestHelper.postWithHeadersAndParams(PortalHashMaps.auth(),PortalHashMaps.putLog(id,content),EndPoints.putLog,200);
-
-
-    }
-    public static void putScreenshot(String id, Object screenByte64){
-        RestHelper.postWithHeadersAndParams(PortalHashMaps.auth(),PortalHashMaps.putAttachment(id,screenByte64,"image/png"),EndPoints.putAttachment,200);
+    private static void putLog(String id, String content, int expectedCode) {
+        RestHelper.postWithHeadersAndParams(PortalHashMaps.auth(), PortalHashMaps.putLogParams(id, content), EndPoints.putLog, expectedCode);
     }
 
-    public static void createNewTestWithLogAndAttachment(String sId,String projectName,String testName, String methodName, String env,String content,Object attachContent){
-        String id = createNewTestAndGetId(sId,projectName,testName,methodName,env);
-        putLog(id,content);
-        putScreenshot(id,attachContent);
+    private static void putScreenshot(String id, Object screenByte64, int expectedCode) {
+        RestHelper.postWithHeadersAndParams(PortalHashMaps.auth(), PortalHashMaps.putAttachmentParams(id, screenByte64, "image/png"), EndPoints.putAttachment, expectedCode);
     }
 
-
+    public static void createNewTestWithLogAndScreenshot(String sId, String projectName, String testName, String methodName, String env, String content, Object attachContent, int expectedCode) {
+        String id = createNewTestAndGetId(sId, projectName, testName, methodName, env, expectedCode);
+        putLog(id, content, expectedCode);
+        putScreenshot(id, attachContent, expectedCode);
+    }
 
 
 }
