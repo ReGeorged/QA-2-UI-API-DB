@@ -38,6 +38,8 @@ public class HomePage extends Form {
     public List<String> getProjectsNameList() {
         List<String> projectsNameList = new ArrayList<>();
         for (int i = 0; i < projectsList.size(); i++) {
+            System.out.printf("size is :"+projectsList.size());
+            System.out.println("index is "+i);
             projectsNameList.add(projectsList.get(i).getText());
         }
         return projectsNameList;

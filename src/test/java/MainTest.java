@@ -61,11 +61,13 @@ public class MainTest extends BaseTest {
         Assert.assertTrue(homePage.isDisplayed(), "Home page is not open");
 
         AqualityServices.getBrowser().getDriver().navigate().refresh();
-        List<String> projectsList = homePage.getProjectsNameList();
+        HomePage notLazyHomePage = new HomePage();
+        List<String> projectsList = notLazyHomePage.getProjectsNameList();
+
         Assert.assertTrue(projectsList.contains(projectName), "Newly created project is not in all projects list");
 
         int index = projectsList.indexOf(projectName);
-        homePage.clickOnProjectViaIndex(index);
+        notLazyHomePage.clickOnProjectViaIndex(index);
         Assert.assertTrue(reportForm.isDisplayed(), "Report form is not open");
         String oldCountString = reportForm.getAllRunningTestsAsString();
         String log = FileUtils.logToString();
